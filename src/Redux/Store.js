@@ -25,7 +25,6 @@ function saveState(state) {
 
 const rootReducer = combineReducers({
   status: statusReducer,
-  editor: editorReducer,
 });
 
 const preloadedState = loadState();

@@ -104,8 +104,7 @@ const Footer = () => {
                 Categories
               </h3>
               <div className="flex flex-wrap gap-2">
-                {categories
-                  .filter((cat) => cat !== "All")
+                {(Array.isArray(categories) ? categories : [])
                   .map((cat) => (
                     <button
                       key={cat}

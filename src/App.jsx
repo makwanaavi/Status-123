@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import store from "./Redux/Store";
 import StatusEditor from "./components/StatusEditor";
-import { setStatuses } from "./Redux/Action";
-import { mockStatuses } from "./data/data";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
 import useLenis from "./components/useLenis";
@@ -16,13 +14,6 @@ import Footer from "./components/Footer";
 
 const App = () => {
   useLenis();
-  useEffect(() => {
-    // Only set mockStatuses if there is no persisted state
-    const persisted = localStorage.getItem("reduxState");
-    if (!persisted) {
-      store.dispatch(setStatuses(mockStatuses));
-    }
-  }, []);
 
   return (
     <Router>
@@ -34,22 +25,8 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/liked" element={<LikedStatuses />} />
         <Route path="/bookmarked" element={<BookmarkedStatuses />} />
-        <Route
-          path="/create"
-          element={
-            <div className="">
-              <StatusEditor page="create" />
-            </div>
-          }
-        />
-        <Route
-          path="/edit/:id"
-          element={
-            <div className="">
-              <StatusEditor page="edit" />
-            </div>
-          }
-        />
+        <Route path="/create" element={<StatusEditor page="create" />} />
+        <Route path="/edit/:id" element={<StatusEditor page="edit" />} />
       </Routes>
       <Footer />
     </Router>
@@ -57,3 +34,8 @@ const App = () => {
 };
 
 export default App;
+
+
+
+// use this  whole project and make simple and easy to use with good for beginner development
+// make fully simple all redux

@@ -2,17 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setText,
-  setFont,
-  setFontSize,
-  setColor,
-  setBackground,
-  setAlignment,
-  setEditorOpen,
-  resetEditor,
-  addStatus,
-} from "../Redux/Action";
+import { setEditorOpen } from "../Redux/Action";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CATEGORIES = [
@@ -22,7 +12,7 @@ const CATEGORIES = [
   "Sad",
   "Funny",
   "Life",
-  "Friendship", 
+  "Friendship",
   "Success",
   "Travel",
   "Nature",
@@ -45,41 +35,13 @@ const CATEGORIES = [
 
 const StatusEditor = ({ page = "create" }) => {
   const dispatch = useDispatch();
-  const canvasRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isRoute = location.pathname === "/create" || page;
-  const {
-    text,
-    font,
-    fontSize,
-    color,
-    background,
-    alignment,
-    isEditorOpen,
-    availableFonts,
-    availableBackgrounds,
-  } = useSelector((state) => state.editor);
+  const { text, font, fontSize, color, background, alignment, isEditorOpen } = useSelector((state) => state.editor);
   const [category, setCategory] = useState(CATEGORIES[1]);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
-
-  // Prefill editor if status data is passed via navigation
-  useEffect(() => {
-    if (location.state && location.state.status) {
-      const s = location.state.status;
-      dispatch(setText(s.text));
-      dispatch(setFont(s.font));
-      dispatch(setFontSize(24));
-      dispatch(setColor(s.color));
-      dispatch(setBackground(s.background));
-      dispatch(setAlignment(s.alignment || "center"));
-      setCategory(s.category || CATEGORIES[1]);
-      if (s.alignX !== undefined) setAlignX(s.alignX);
-      if (s.alignY !== undefined) setAlignY(s.alignY);
-    }
-    // eslint-disable-next-line
-  }, [location.state]);
 
   const handleClose = () => {
     if (isRoute) {
@@ -99,20 +61,11 @@ const StatusEditor = ({ page = "create" }) => {
       background,
       font,
       color,
-      likes: 0,
-      saves: 0,
       isLiked: false,
       isSaved: true,
       createdAt: new Date().toISOString().split("T")[0],
-      tags: ["custom", "personal"],
-      type: "quote",
-      alignment,
-      alignX,
-      alignY,
     };
 
-    dispatch(addStatus(newStatus));
-    dispatch(resetEditor());
     setCategory(CATEGORIES[1]);
     setAlignX(50);
     setAlignY(50);
@@ -174,8 +127,14 @@ const StatusEditor = ({ page = "create" }) => {
 
     // Calculate x, y based on alignX, alignY (0-100%)
     let x;
-    if (alignment === "left") x = 50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
-    else if (alignment === "right") x = 50 + ((canvas.width - 100) * alignX) / 100 + maxWidth * ((100-alignX)/100);
+    if (alignment === "left")
+      x =
+        50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
+    else if (alignment === "right")
+      x =
+        50 +
+        ((canvas.width - 100) * alignX) / 100 +
+        maxWidth * ((100 - alignX) / 100);
     else x = 50 + ((canvas.width - 100) * alignX) / 100;
     const y = 50 + ((canvas.height - totalTextHeight - 100) * alignY) / 100;
 
@@ -324,9 +283,7 @@ const StatusEditor = ({ page = "create" }) => {
               min="12"
               max="48"
               value={fontSize}
-              onChange={(e) =>
-                dispatch(setFontSize(Number(e.target.value)))
-              }
+              onChange={(e) => dispatch(setFontSize(Number(e.target.value)))}
               className="w-full"
             />
           </div>
@@ -374,7 +331,9 @@ const StatusEditor = ({ page = "create" }) => {
             </div>
             <div className="space-y-2">
               <div>
-                <span className="text-xs text-gray-500">Horizontal: {alignX}%</span>
+                <span className="text-xs text-gray-500">
+                  Horizontal: {alignX}%
+                </span>
                 <input
                   type="range"
                   min="0"
@@ -385,7 +344,9 @@ const StatusEditor = ({ page = "create" }) => {
                 />
               </div>
               <div>
-                <span className="text-xs text-gray-500">Vertical: {alignY}%</span>
+                <span className="text-xs text-gray-500">
+                  Vertical: {alignY}%
+                </span>
                 <input
                   type="range"
                   min="0"
@@ -468,5 +429,3 @@ const StatusEditor = ({ page = "create" }) => {
 };
 
 export default StatusEditor;
-
-

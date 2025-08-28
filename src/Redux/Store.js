@@ -13,21 +13,8 @@ function loadState() {
   }
 }
 
-// Save state to localStorage
-function saveState(state) {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem("reduxState", serializedState);
-  } catch (e) {}
-}
-
 const persistedState = loadState();
 
 const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
-
-store.subscribe(() => {
-  const { status, user, editor } = store.getState();
-  saveState({ status, user, editor });
-});
 
 export default store;

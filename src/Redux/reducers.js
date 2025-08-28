@@ -1,8 +1,6 @@
 import { combineReducers } from "redux";
 import * as types from "./ActionType";
 
-// ...existing initial states from your slices...
-
 const statusInitialState = {
   statuses: [],
   filteredStatuses: [],
@@ -34,8 +32,6 @@ const statusInitialState = {
     "Technology",
   ],
   activeCategory: "All",
-  searchQuery: "",
-  loading: false,
   selectedStatus: null,
 };
 
@@ -47,142 +43,17 @@ function statusReducer(state = statusInitialState, action) {
         statuses: action.payload,
         filteredStatuses: action.payload,
       };
-    case types.SET_ACTIVE_CATEGORY:
-      return {
-        ...state,
-        activeCategory: action.payload,
-        filteredStatuses:
-          action.payload === "All"
-            ? state.statuses
-            : state.statuses.filter((s) => s.category === action.payload),
-      };
-    case types.SET_SEARCH_QUERY:
-      const query = action.payload.toLowerCase();
-      return {
-        ...state,
-        searchQuery: action.payload,
-        filteredStatuses: state.statuses.filter(
-          (s) =>
-            s.text.toLowerCase().includes(query) ||
-            s.category.toLowerCase().includes(query) ||
-            s.tags.some((tag) => tag.toLowerCase().includes(query))
-        ),
-      };
-    case types.TOGGLE_LIKE:
-      return {
-        ...state,
-        statuses: state.statuses.map((s) =>
-          s.id === action.payload
-            ? {
-                ...s,
-                isLiked: !s.isLiked,
-                likes: s.likes + (s.isLiked ? -1 : 1),
-              }
-            : s
-        ),
-        filteredStatuses: state.filteredStatuses.map((s) =>
-          s.id === action.payload
-            ? {
-                ...s,
-                isLiked: !s.isLiked,
-                likes: s.likes + (s.isLiked ? -1 : 1),
-              }
-            : s
-        ),
-      };
-    case types.TOGGLE_SAVE:
-      return {
-        ...state,
-        statuses: state.statuses.map((s) =>
-          s.id === action.payload
-            ? {
-                ...s,
-                isSaved: !s.isSaved,
-                saves: s.saves + (s.isSaved ? -1 : 1),
-              }
-            : s
-        ),
-        filteredStatuses: state.filteredStatuses.map((s) =>
-          s.id === action.payload
-            ? {
-                ...s,
-                isSaved: !s.isSaved,
-                saves: s.saves + (s.isSaved ? -1 : 1),
-              }
-            : s
-        ),
-      };
-    case types.SET_SELECTED_STATUS:
-      return { ...state, selectedStatus: action.payload };
-    case types.ADD_STATUS:
-      return {
-        ...state,
-        statuses: [action.payload, ...state.statuses],
-        filteredStatuses: [action.payload, ...state.filteredStatuses],
-      };
-    case types.FETCH_STATUSES_REQUEST:
-      return { ...state, loading: true };
-    case types.FETCH_STATUSES_SUCCESS:
-      return {
-        ...state,
-        statuses: action.payload,
-        filteredStatuses: action.payload,
-        loading: false,
-      };
-    case types.FETCH_STATUSES_FAILURE:
-      return { ...state, loading: false };
+
     default:
       return state;
   }
 }
-
-const userInitialState = {
-  currentUser: null,
-  savedStatuses: [],
-  followedUsers: [],
-};
-
-function userReducer(state = userInitialState, action) {
-  switch (action.type) {
-    case types.SET_CURRENT_USER:
-      return { ...state, currentUser: action.payload };
-
-    case types.ADD_SAVED_STATUS:
-      return {
-        ...state,
-        savedStatuses: [...state.savedStatuses, action.payload],
-      };
-    case types.REMOVE_SAVED_STATUS:
-      return {
-        ...state,
-        savedStatuses: state.savedStatuses.filter(
-          (id) => id !== action.payload
-        ),
-      };
-    case types.FOLLOW_USER:
-      return state.followedUsers.includes(action.payload)
-        ? state
-        : { ...state, followedUsers: [...state.followedUsers, action.payload] };
-    case types.UNFOLLOW_USER:
-      return {
-        ...state,
-        followedUsers: state.followedUsers.filter(
-          (id) => id !== action.payload
-        ),
-      };
-    default:
-      return state;
-  }
-}
-
 const editorInitialState = {
   text: "",
   font: "Inter",
   fontSize: 24,
   color: "#ffffff",
   background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-  backgroundType: "gradient",
-  alignment: "center",
   isEditorOpen: false,
   availableFonts: [
     "Inter",
@@ -211,7 +82,6 @@ const editorInitialState = {
     "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
     "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
   ],
-  searchQuery: "",
 };
 
 function editorReducer(state = editorInitialState, action) {
@@ -226,8 +96,7 @@ function editorReducer(state = editorInitialState, action) {
       return { ...state, color: action.payload };
     case types.SET_BACKGROUND:
       return { ...state, background: action.payload };
-    case types.SET_BACKGROUND_TYPE:
-      return { ...state, backgroundType: action.payload };
+
     case types.SET_ALIGNMENT:
       return { ...state, alignment: action.payload };
     case types.SET_EDITOR_OPEN:
@@ -252,7 +121,6 @@ function editorReducer(state = editorInitialState, action) {
 
 const rootReducer = combineReducers({
   status: statusReducer,
-  user: userReducer,
   editor: editorReducer,
 });
 

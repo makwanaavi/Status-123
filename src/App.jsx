@@ -57,6 +57,16 @@ const App = () => {
               </div>
             }
           />
+          <Route
+            path="/edit/:id"
+            element={
+              <div className="">
+                <Header />
+                <StatusEditor fullPage={true} />
+                <Footer />
+              </div>
+            }
+          />
         </Routes>
       </Router>
     </Provider>

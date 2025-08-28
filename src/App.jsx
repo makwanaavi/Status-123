@@ -9,23 +9,27 @@ import Contact from "./pages/Contact";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import { Provider } from "react-redux";
+import store from "./Redux/Store";
 
 const App = () => {
   return (
-    <Router>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/liked" element={<LikedStatuses />} />
-        <Route path="/bookmarked" element={<BookmarkedStatuses />} />
-        <Route path="/create" element={<StatusEditor page="create" />} />
-        <Route path="/edit/:id" element={<StatusEditor page="edit" />} />
-      </Routes>
-      <Footer />
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/liked" element={<LikedStatuses />} />
+          <Route path="/bookmarked" element={<BookmarkedStatuses />} />
+          <Route path="/create" element={<StatusEditor page="create" />} />
+          <Route path="/edit/:id" element={<StatusEditor page="edit" />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </Provider>
   );
 };
 

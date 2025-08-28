@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import statusReducer, { editorReducer } from "../components/utilities";
-import { combineReducers } from "redux";
+import rootReducer from "./reducers";
 
 // Load state from localStorage
 function loadState() {
@@ -22,12 +21,6 @@ function saveState(state) {
     // Ignore write errors
   }
 }
-
-const rootReducer = combineReducers({
-  status: statusReducer,
-});
-
-
 
 const preloadedState = loadState();
 

@@ -22,7 +22,6 @@ const BookmarkedStatuses = () => {
 
   return (
     <>
-      <Header />
       <CategoryFilter />
       <section className="py-6 sm:py-8 mx-auto min-h-screen px-2 sm:px-4 md:px-24">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-pink-600">
@@ -47,7 +46,6 @@ const BookmarkedStatuses = () => {
           </div>
         )}
       </section>
-      <Footer />
     </>
   );
 };

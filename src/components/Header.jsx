@@ -1,14 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Search, Plus, Heart, Bookmark, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const { statuses } = useSelector((state) => ({
-    statuses: state.statuses,
-  }));
+  const statuses = useSelector((state) => state.status.statuses);
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
   const bookmarkedCount = statuses.filter((s) => s.isSaved).length;
@@ -227,3 +224,4 @@ const Header = () => {
 };
 
 export default Header;
+

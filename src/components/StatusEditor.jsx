@@ -38,7 +38,8 @@ const StatusEditor = ({ page = "create" }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const isRoute = location.pathname === "/create" || page;
-  const { text, font, fontSize, color, background, alignment, isEditorOpen } = useSelector((state) => state.editor);
+  const { text, font, fontSize, color, background, alignment, isEditorOpen } =
+    useSelector((state) => state.editor);
   const [category, setCategory] = useState(CATEGORIES[1]);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom

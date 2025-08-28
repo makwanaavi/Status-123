@@ -107,7 +107,7 @@ const StatusCard = ({ status, index }) => {
         >
           {/* Floating Avatar */}
           <div
-            className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg"
+            className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg bg-black"
             style={{
               color: avatarColor,
               borderRadius: "50%",

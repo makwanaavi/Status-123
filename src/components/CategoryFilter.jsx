@@ -5,7 +5,7 @@ import React, { useRef } from "react";
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-  const { categories, activeCategory } = useSelector((state) => state);
+  const { categories, activeCategory } = useSelector((state) => state.status);
   const scrollRef = useRef(null);
 
   const handleCategoryClick = (category) => {

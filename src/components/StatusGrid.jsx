@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import StatusCard from "./StatusCard";
 
 const StatusGrid = () => {
-  const { statuses, activeCategory } = useSelector((state) => state);
+  const { statuses, activeCategory } = useSelector((state) => state.status);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 

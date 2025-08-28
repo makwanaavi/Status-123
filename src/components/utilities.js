@@ -131,4 +131,5 @@ function editorReducer(state = editorInitialState, action) {
   }
 }
 
-export { statusReducer, editorReducer };
+export { editorReducer };
+export default statusReducer;

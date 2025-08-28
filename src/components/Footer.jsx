@@ -6,7 +6,7 @@ import { setActiveCategory } from "../Redux/Action";
 
 const Footer = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state);
+  const { categories } = useSelector((state) => state.status);
 
   const linkSections = [
     {

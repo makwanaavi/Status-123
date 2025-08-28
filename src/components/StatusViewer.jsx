@@ -14,9 +14,7 @@ import { setSelectedStatus, toggleLike, toggleSave } from "../Redux/Action";
 
 const StatusViewer = () => {
   const dispatch = useDispatch();
-  const { selectedStatus, filteredStatuses } = useSelector(
-    (state) => state.status
-  );
+  const { selectedStatus, statuses } = useSelector((state) => state);
 
   const handleClose = () => {
     dispatch(setSelectedStatus(null));
@@ -53,6 +51,25 @@ const StatusViewer = () => {
     }
   };
 
+  // Navigation helpers
+  const currentIndex = statuses.findIndex(
+    (s) => s.id === (selectedStatus && selectedStatus.id)
+  );
+  const canGoPrevious = currentIndex > 0;
+  const canGoNext = currentIndex < statuses.length - 1;
+
+  const handlePrevious = () => {
+    if (canGoPrevious) {
+      dispatch(setSelectedStatus(statuses[currentIndex - 1]));
+    }
+  };
+
+  const handleNext = () => {
+    if (canGoNext) {
+      dispatch(setSelectedStatus(statuses[currentIndex + 1]));
+    }
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyPress = (e) => {
@@ -76,12 +93,6 @@ const StatusViewer = () => {
   }, [selectedStatus]);
 
   if (!selectedStatus) return null;
-
-  const currentIndex = filteredStatuses.findIndex(
-    (s) => s.id === selectedStatus.id
-  );
-  const canGoPrevious = currentIndex > 0;
-  const canGoNext = currentIndex < filteredStatuses.length - 1;
 
   return (
     <AnimatePresence>
@@ -264,7 +275,7 @@ const StatusViewer = () => {
             </div>
             <div className="flex items-center space-x-1">
               <span>
-                {currentIndex + 1} / {filteredStatuses.length}
+                {currentIndex + 1} / {statuses.length}
               </span>
             </div>
           </motion.div>

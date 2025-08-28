@@ -51,7 +51,10 @@ const StatusCard = ({ status, index }) => {
   const [bgColor] = React.useState(
     () => colors[Math.floor(Math.random() * colors.length)]
   );
-  const textColor = isColorDark(bgColor) ? "#fff" : "#222";
+
+  // Simple color logic for text and avatar
+  const textColor = "#222";
+  const avatarColor = "#ec4899";
 
   // Responsive card size
   const [cardSize, setCardSize] = React.useState({ width: 160, height: 220 });
@@ -72,12 +75,21 @@ const StatusCard = ({ status, index }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Dummy handlers for share/download
+  const handleShare = (e) => {
+    e.stopPropagation();
+    // Implement share logic if needed
+  };
+  const handleDownload = (e) => {
+    e.stopPropagation();
+    // Implement download logic if needed
+  };
+
   return (
     <div
       className="group cursor-pointer h-full w-full flex flex-col items-center relative mx-auto"
       // Added mx-auto for horizontal centering, removed any margin classes
       onClick={handleView}
-      {...cardMotion}
       style={{
         zIndex: 0,
         width: cardSize.width,
@@ -97,7 +109,6 @@ const StatusCard = ({ status, index }) => {
           <div
             className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg"
             style={{
-              background: avatarBg,
               color: avatarColor,
               borderRadius: "50%",
               width: 48,
@@ -125,7 +136,7 @@ const StatusCard = ({ status, index }) => {
                   color: textColor,
                   fontSize: "clamp(16px, 2.5vw, 22px)",
                   textAlign: status.text.length > 100 ? "left" : "center",
-                  textShadow: isColorDark(bgColor)
+                  textShadow: (bgColor)
                     ? "0 2px 8px rgba(0,0,0,0.25)"
                     : "0 2px 8px rgba(255,255,255,0.25)",
                   fontWeight: 600,

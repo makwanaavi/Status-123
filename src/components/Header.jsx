@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const dispatch = useDispatch();
   const { statuses } = useSelector((state) => ({
-    statuses: state.status.statuses,
+    statuses: state.statuses,
   }));
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
@@ -69,7 +69,6 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search statuses, categories..."
-              
                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-gray-50 text-sm sm:text-base transition"
               />
               {/* Category Suggestions Dropdown */}

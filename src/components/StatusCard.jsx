@@ -106,21 +106,26 @@ const StatusCard = ({ status, index }) => {
           }}
         >
           {/* Floating Avatar */}
-          <div
-            className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 
-             flex items-center justify-center shadow-lg 
-             bg-pink-500  rounded-full"
+            <div
+            className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg bg-black"
             style={{
-              width: 60,
-              height: 60,
               color: avatarColor,
+              borderRadius: "50%",
+              width: 48,
+              height: 48,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: "3px solid #ec4899",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.10)",
               fontWeight: 700,
               fontSize: 22,
               letterSpacing: 1,
             }}
           >
-            <User className="w-6 h-6 mt-4 text-white" />
+            <User className="w-6 h-6" />
           </div>
+
 
           {/* Content */}
           <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">

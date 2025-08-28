@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Search, Plus, Heart, Bookmark, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { setSearchQuery, setEditorOpen } from "../Redux/Action";
 import { Link } from "react-router-dom";
 
 const Header = () => {
@@ -37,11 +36,6 @@ const Header = () => {
   const handleCategorySelect = (cat) => {
     dispatch(setSearchQuery(cat));
     setShowCatDropdown(false);
-  };
-
-  const openEditor = () => {
-    dispatch(setEditorOpen(true));
-    setMenuOpen(false);
   };
 
   // Animation variants for mobile menu
@@ -137,7 +131,6 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-2 sm:space-x-4">
             <Link
               to="/create"
-              onClick={openEditor}
               className="flex items-center space-x-2 bg-pink-600 text-white px-3 sm:px-4 py-2 rounded-full hover:shadow-lg transition text-sm sm:text-base font-semibold"
             >
               <Plus className="w-4 h-4" />

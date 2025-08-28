@@ -72,10 +72,7 @@ const StatusGrid = () => {
         ))}
         {/* Empty slots to fill up the grid */}
         {Array.from({ length: emptySlots }).map((_, idx) => (
-          <div
-            key={`empty-${idx}`}
-            className="opacity-0"
-          >
+          <div key={`empty-${idx}`} className="opacity-0">
             {/* Empty placeholder */}
           </div>
         ))}
@@ -148,4 +145,3 @@ const StatusGrid = () => {
 };
 
 export default StatusGrid;
-

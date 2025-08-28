@@ -106,7 +106,7 @@ const StatusCard = ({ status, index }) => {
           }}
         >
           {/* Floating Avatar */}
-          <div
+            <div
             className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg bg-black"
             style={{
               color: avatarColor,
@@ -126,6 +126,7 @@ const StatusCard = ({ status, index }) => {
             <User className="w-6 h-6" />
           </div>
 
+
           {/* Content */}
           <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">
             {/* Main Text */}
@@ -136,7 +137,7 @@ const StatusCard = ({ status, index }) => {
                   color: textColor,
                   fontSize: "clamp(16px, 2.5vw, 22px)",
                   textAlign: status.text.length > 100 ? "left" : "center",
-                  textShadow: (bgColor)
+                  textShadow: bgColor
                     ? "0 2px 8px rgba(0,0,0,0.25)"
                     : "0 2px 8px rgba(255,255,255,0.25)",
                   fontWeight: 600,

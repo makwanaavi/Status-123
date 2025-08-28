@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
   status: statusReducer,
+  editor: editorReducer,
 });
 
 export default rootReducer;

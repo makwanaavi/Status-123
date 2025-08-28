@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   setText,
   setFont,
@@ -10,6 +10,7 @@ import {
   setColor,
   setBackground,
   setAlignment,
+  resetEditor,
 } from "../Redux/Action";
 
 const CATEGORIES = [
@@ -42,6 +43,8 @@ const CATEGORIES = [
 
 const StatusEditor = ({ page = "create" }) => {
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const statuses = useSelector((state) => state.status.statuses);
   const {
     text,
     font,
@@ -74,6 +77,25 @@ const StatusEditor = ({ page = "create" }) => {
   const handleSave = () => {
     // Implement save/share logic if needed
   };
+
+  // Prefill logic for edit/create
+  useEffect(() => {
+    if (page === "edit" && id) {
+      const status = statuses.find((s) => String(s.id) === String(id));
+      if (status) {
+        dispatch(setText(status.text));
+        dispatch(setFont("Inter"));
+        dispatch(setFontSize(24));
+        dispatch(setColor("#222"));
+        dispatch(setBackground("#F8BBD0"));
+        dispatch(setAlignment("center"));
+        // Optionally set other fields if needed
+      }
+    } else if (page === "create") {
+      dispatch(resetEditor());
+    }
+    // eslint-disable-next-line
+  }, [page, id, dispatch]);
 
   const editorContent = (
     <div

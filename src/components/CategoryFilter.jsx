@@ -2,18 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategory } from "../Redux/Action";
 
 import React, { useRef } from "react";
-// ...existing code...
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-  const { categories, activeCategory } = useSelector((state) => state.status);
+  const { categories, activeCategory } = useSelector((state) => state);
   const scrollRef = useRef(null);
 
   const handleCategoryClick = (category) => {
     dispatch(setActiveCategory(category));
   };
 
-  // Handle horizontal scroll with Shift+Wheel
   const handleWheel = (e) => {
     if (e.shiftKey && scrollRef.current && e.currentTarget.contains(e.target)) {
       e.preventDefault();
@@ -32,7 +30,7 @@ const CategoryFilter = () => {
           tabIndex={0}
           aria-label="Category list, scrollable horizontally with Shift+Wheel"
         >
-          {categories.map((category, index) => (
+          {categories.map((category) => (
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}

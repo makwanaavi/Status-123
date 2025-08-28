@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import store from "./Redux/Store";
 import StatusEditor from "./components/StatusEditor";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
@@ -33,4 +32,5 @@ const App = () => {
 export default App;
 
 // use this  whole project and make simple and easy to use with good for beginner development
+// make fully simple all redux
 // make fully simple all redux

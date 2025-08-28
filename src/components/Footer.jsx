@@ -6,15 +6,7 @@ import { setActiveCategory } from "../Redux/Action";
 
 const Footer = () => {
   const dispatch = useDispatch();
-  // Get categories from Redux state
-  const { statuses } = useSelector((state) => state.status);
-  const categories = Array.from(
-    new Set(statuses.map((s) => s.category))
-  ).filter(Boolean);
-
-  // Split categories into two rows
-  const mid = Math.ceil(categories.length / 2);
-  const catRows = [categories.slice(0, mid), categories.slice(mid)];
+  const { categories } = useSelector((state) => state);
 
   const linkSections = [
     {
@@ -23,8 +15,8 @@ const Footer = () => {
     },
   ];
 
-  const handleCategoryClick = (cat) => {
-    dispatch(setActiveCategory(cat));
+  const handleCategoryClick = (category) => {
+    dispatch(setActiveCategory(category));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -112,20 +104,18 @@ const Footer = () => {
                 Categories
               </h3>
               <div className="flex flex-col gap-2">
-                {catRows.map((row, rowIdx) => (
-                  <div key={rowIdx} className="flex flex-wrap gap-2">
-                    {row.map((cat) => (
-                      <button
-                        key={cat}
-                        type="button"
-                        onClick={() => handleCategoryClick(cat)}
-                        className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 transition cursor-pointer border border-pink-200"
-                      >
-                        {cat}
-                      </button>
-                    ))}
-                  </div>
-                ))}
+                {categories
+                  .filter((cat) => cat !== "All")
+                  .map((cat) => (
+                    <button
+                      key={cat}
+                      type="button"
+                      onClick={() => handleCategoryClick(cat)}
+                      className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 transition cursor-pointer border border-pink-200"
+                    >
+                      {cat}
+                    </button>
+                  ))}
               </div>
             </nav>
             {/* Socials */}

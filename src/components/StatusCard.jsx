@@ -21,7 +21,7 @@ const StatusCard = ({ status, index }) => {
 
   const handleView = () => {
     // Navigate to edit route with status id and pass status in state
-    navigate(`/edit/${status.id}`, { state: { status } });
+    navigate(`/edit/${status.category}`, { state: { status } });
   };
 
   const colors = [

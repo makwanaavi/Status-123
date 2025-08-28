@@ -30,19 +30,23 @@ const CategoryFilter = () => {
           tabIndex={0}
           aria-label="Category list, scrollable horizontally with Shift+Wheel"
         >
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => handleCategoryClick(category)}
-              className={`px-3 sm:px-4 py-2 rounded-full whitespace-nowrap mt-2 text-xs sm:text-sm font-medium transition-all ${
-                activeCategory === category
-                  ? "bg-pink-600 text-white"
-                  : "bg-white text-gray-600 "
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+          {categories.length === 0 ? (
+            <span className="text-gray-400 px-4">No categories found.</span>
+          ) : (
+            categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+                className={`px-3 sm:px-4 py-2 rounded-full whitespace-nowrap mt-2 text-xs sm:text-sm font-medium transition-all ${
+                  activeCategory === category
+                    ? "bg-pink-600 text-white"
+                    : "bg-white text-gray-600 "
+                }`}
+              >
+                {category}
+              </button>
+            ))
+          )}
         </div>
       </div>
     </div>

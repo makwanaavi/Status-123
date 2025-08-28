@@ -4,7 +4,7 @@ import StatusCard from "../components/StatusCard";
 import CategoryFilter from "../components/CategoryFilter";
 
 const LikedStatuses = () => {
-  const { statuses, activeCategory } = useSelector((state) => state);
+  const { statuses, activeCategory } = useSelector((state) => state.status);
 
   const liked = statuses.filter((s) => s.isLiked);
   const filteredLiked =

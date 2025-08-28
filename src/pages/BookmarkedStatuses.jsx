@@ -4,7 +4,7 @@ import StatusCard from "../components/StatusCard";
 import CategoryFilter from "../components/CategoryFilter";
 
 const BookmarkedStatuses = () => {
-  const { statuses, activeCategory } = useSelector((state) => state);
+  const { statuses, activeCategory } = useSelector((state) => state.status);
 
   const bookmarked = statuses.filter((s) => s.isSaved);
   const filteredBookmarked =
@@ -45,4 +45,3 @@ const BookmarkedStatuses = () => {
 };
 
 export default BookmarkedStatuses;
- 

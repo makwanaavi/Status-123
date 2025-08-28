@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  setText,
+  setFont,
+  setFontSize,
+  setColor,
+  setBackground,
+  setAlignment,
+} from "../Redux/Action";
 
 const CATEGORIES = [
   "All",
@@ -34,11 +42,38 @@ const CATEGORIES = [
 
 const StatusEditor = ({ page = "create" }) => {
   const dispatch = useDispatch();
-  const { text, font, fontSize, color, background, alignment, isEditorOpen } =
-    useSelector((state) => state.editor);
+  const {
+    text,
+    font,
+    fontSize,
+    color,
+    background,
+    alignment,
+    availableFonts,
+    availableBackgrounds,
+    isEditorOpen,
+  } = useSelector((state) => state.editor);
+
   const [category, setCategory] = useState(CATEGORIES[1]);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
+
+  const canvasRef = useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isRoute = true; // Always true for route usage
+
+  const handleClose = () => {
+    navigate(-1);
+  };
+
+  const handleDownload = () => {
+    // Implement download logic if needed
+  };
+
+  const handleSave = () => {
+    // Implement save/share logic if needed
+  };
 
   const editorContent = (
     <div

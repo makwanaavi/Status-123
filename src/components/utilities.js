@@ -31,7 +31,6 @@ const initialState = {
     "Technology",
   ],
   activeCategory: "All",
-  selectedStatus: null,
 };
 
 function statusReducer(state = initialState, action) {

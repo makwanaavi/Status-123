@@ -1,9 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
-import Header from "../components/Header";
 import CategoryFilter from "../components/CategoryFilter";
-import Footer from "../components/Footer";
 
 const LikedStatuses = () => {
   const { statuses, activeCategory } = useSelector((state) => state.status);
@@ -22,7 +20,6 @@ const LikedStatuses = () => {
 
   return (
     <>
-      <Header />
       <CategoryFilter />
       <section className="py-6 sm:py-8 min-h-screen px-2 sm:px-4 md:px-24">
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-pink-600">
@@ -47,10 +44,8 @@ const LikedStatuses = () => {
           </div>
         )}
       </section>
-      <Footer />
     </>
   );
 };
 
 export default LikedStatuses;
-

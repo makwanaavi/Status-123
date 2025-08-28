@@ -103,7 +103,7 @@ const Footer = () => {
               <h3 className="font-bold text-lg text-gray-900 mb-4 tracking-wide">
                 Categories
               </h3>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-wrap gap-2">
                 {categories
                   .filter((cat) => cat !== "All")
                   .map((cat) => (
@@ -111,7 +111,10 @@ const Footer = () => {
                       key={cat}
                       type="button"
                       onClick={() => handleCategoryClick(cat)}
-                      className="px-4 py-1 rounded-full bg-pink-500 text-white font-semibold text-sm shadow hover:from-pink-200 hover:to-purple-200 transition cursor-pointer border border-pink-200"
+                      className="px-4 py-1 rounded-full bg-pink-500 text-white font-medium text-sm 
+                   shadow-md border border-pink-300
+                
+                   transition-all duration-300 ease-in-out"
                     >
                       {cat}
                     </button>

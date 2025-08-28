@@ -14,7 +14,7 @@ import { setSelectedStatus, toggleLike, toggleSave } from "../Redux/Action";
 
 const StatusViewer = () => {
   const dispatch = useDispatch();
-  const { selectedStatus, statuses } = useSelector((state) => state);
+  const { selectedStatus, statuses } = useSelector((state) => state.status);
 
   const handleClose = () => {
     dispatch(setSelectedStatus(null));

@@ -1,6 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import statusReducer, { editorReducer } from "../components/utilities";
-import { combineReducers } from "redux";
+import rootReducer from "./reducers";
 
 // Load the status object from localStorage, but remove categories if present
 function loadState() {
@@ -28,12 +27,6 @@ function saveState(state) {
     // Ignore write errors
   }
 }
-
-const rootReducer = combineReducers({
-  status: statusReducer,
-});
-
-
 
 const preloadedState = loadState();
 

@@ -43,12 +43,12 @@ const CATEGORIES = [
   "Technology",
 ];
 
-const StatusEditor = ({ fullPage = false }) => {
+const StatusEditor = ({ page = "create" }) => {
   const dispatch = useDispatch();
   const canvasRef = useRef(null);
   const location = useLocation();
   const navigate = useNavigate();
-  const isRoute = location.pathname === "/create" || fullPage;
+  const isRoute = location.pathname === "/create" || page;
   const {
     text,
     font,
@@ -196,14 +196,14 @@ const StatusEditor = ({ fullPage = false }) => {
   const editorContent = (
     <div
       className={`w-full flex flex-col md:flex-row items-center justify-center ${
-        fullPage ? "min-h-[70vh]  mx-auto my-8" : "h-full"
+        page ? "min-h-[70vh]  mx-auto my-8" : "h-full"
       }`}
     >
       {/* Canvas Area */}
       <div className="flex-1 flex items-center justify-center p-1 sm:p-2 md:p-4">
         <div
           className={`relative w-full max-w-[95vw] sm:max-w-lg md:max-w-2xl aspect-square rounded-2xl overflow-hidden shadow-2xl ${
-            fullPage ? "border border-gray-200 bg-white" : ""
+            page ? "border border-gray-200 bg-white" : ""
           }`}
           style={{ background, fontFamily: font }}
         >
@@ -254,11 +254,11 @@ const StatusEditor = ({ fullPage = false }) => {
       </div>
       {/* Editor Panel */}
       <motion.div
-        initial={fullPage ? false : { x: 400, opacity: 0 }}
-        animate={fullPage ? false : { x: 0, opacity: 1 }}
-        exit={fullPage ? false : { x: 400, opacity: 0 }}
+        initial={page ? false : { x: 400, opacity: 0 }}
+        animate={page ? false : { x: 0, opacity: 1 }}
+        exit={page ? false : { x: 400, opacity: 0 }}
         className={`w-[50%] bg-white shadow-2xl flex flex-col ${
-          fullPage ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8" : ""
+          page ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8" : ""
         }`}
       >
         {/* Header */}
@@ -440,7 +440,7 @@ const StatusEditor = ({ fullPage = false }) => {
     </div>
   );
 
-  if (isRoute && fullPage) {
+  if (isRoute && page) {
     // Render as a page (no modal, no AnimatePresence)
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">

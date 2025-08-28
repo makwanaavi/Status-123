@@ -1,12 +1,3 @@
-/**
- * @typedef {Object} Status
- * @property {string} id
- * @property {string} text
- * @property {string} category
- * @property {boolean} isLiked
- * @property {boolean} isSaved
- */
-
 // Mock status data
 export const mockStatuses = [
   // Love
@@ -369,14 +360,14 @@ export const mockStatuses = [
     isLiked: false,
     isSaved: false,
   },
-    {
+  {
     id: "49",
     text: "The science of today is the technology of tomorrow.",
     category: "Technology",
     isLiked: false,
     isSaved: false,
   },
-    {
+  {
     id: "50",
     text: "True love is eternal, infinite, and always like itself.",
     category: "Love",

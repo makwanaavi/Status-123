@@ -1,0 +1,30 @@
+// Status action types
+export const SET_STATUSES = 'SET_STATUSES';
+export const SET_ACTIVE_CATEGORY = 'SET_ACTIVE_CATEGORY';
+export const SET_SEARCH_QUERY = 'SET_SEARCH_QUERY';
+export const TOGGLE_LIKE = 'TOGGLE_LIKE';
+export const TOGGLE_SAVE = 'TOGGLE_SAVE';
+export const SET_SELECTED_STATUS = 'SET_SELECTED_STATUS';
+export const ADD_STATUS = 'ADD_STATUS';
+export const FETCH_STATUSES_REQUEST = 'FETCH_STATUSES_REQUEST';
+export const FETCH_STATUSES_SUCCESS = 'FETCH_STATUSES_SUCCESS';
+export const FETCH_STATUSES_FAILURE = 'FETCH_STATUSES_FAILURE';
+
+// User action types
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const ADD_SAVED_STATUS = 'ADD_SAVED_STATUS';
+export const REMOVE_SAVED_STATUS = 'REMOVE_SAVED_STATUS';
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+
+// Editor action types
+export const SET_TEXT = 'SET_TEXT';
+export const SET_FONT = 'SET_FONT';
+export const SET_FONT_SIZE = 'SET_FONT_SIZE';
+export const SET_COLOR = 'SET_COLOR';
+export const SET_BACKGROUND = 'SET_BACKGROUND';
+export const SET_BACKGROUND_TYPE = 'SET_BACKGROUND_TYPE';
+export const SET_ALIGNMENT = 'SET_ALIGNMENT';
+export const SET_EDITOR_OPEN = 'SET_EDITOR_OPEN';
+export const SET_EDITOR_SEARCH_QUERY = 'SET_EDITOR_SEARCH_QUERY';
+export const RESET_EDITOR = 'RESET_EDITOR';

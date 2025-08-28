@@ -1,8 +1,7 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setEditorOpen } from "../Redux/Action";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const CATEGORIES = [
@@ -48,29 +47,7 @@ const StatusEditor = ({ page = "create" }) => {
     if (isRoute) {
       navigate(-1);
     } else {
-      dispatch(setEditorOpen(false));
     }
-  };
-
-  const handleSave = () => {
-    if (!text.trim()) return;
-
-    const newStatus = {
-      id: Date.now().toString(),
-      text: text.trim(),
-      category: category,
-      background,
-      font,
-      color,
-      isLiked: false,
-      isSaved: true,
-      createdAt: new Date().toISOString().split("T")[0],
-    };
-
-    setCategory(CATEGORIES[1]);
-    setAlignX(50);
-    setAlignY(50);
-    dispatch(setEditorOpen(false));
   };
 
   const handleDownload = () => {

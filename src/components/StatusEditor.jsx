@@ -34,101 +34,11 @@ const CATEGORIES = [
 
 const StatusEditor = ({ page = "create" }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const isRoute = location.pathname === "/create" || page;
   const { text, font, fontSize, color, background, alignment, isEditorOpen } =
     useSelector((state) => state.editor);
   const [category, setCategory] = useState(CATEGORIES[1]);
   const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
   const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
-
-  const handleClose = () => {
-    if (isRoute) {
-      navigate(-1);
-    } else {
-    }
-  };
-
-  const handleDownload = () => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    canvas.width = 800;
-    canvas.height = 600;
-
-    // Create gradient background
-    let fillStyle;
-    if (background.includes("gradient")) {
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      gradient.addColorStop(0, "#667eea");
-      gradient.addColorStop(1, "#764ba2");
-      fillStyle = gradient;
-    } else {
-      fillStyle = background;
-    }
-
-    ctx.fillStyle = fillStyle;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Add text
-    ctx.fillStyle = color;
-    ctx.font = `${fontSize * 2}px ${font}`;
-    ctx.textAlign = alignment;
-    ctx.textBaseline = "top";
-
-    // Word wrap
-    const maxWidth = canvas.width - 100;
-    const words = text.split(" ");
-    const lines = [];
-    let currentLine = "";
-    for (const word of words) {
-      const testLine = currentLine + (currentLine ? " " : "") + word;
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-    }
-    lines.push(currentLine);
-
-    const lineHeight = fontSize * 2.5;
-    const totalTextHeight = lines.length * lineHeight;
-
-    // Calculate x, y based on alignX, alignY (0-100%)
-    let x;
-    if (alignment === "left")
-      x =
-        50 + ((canvas.width - 100) * alignX) / 100 - maxWidth * (alignX / 100);
-    else if (alignment === "right")
-      x =
-        50 +
-        ((canvas.width - 100) * alignX) / 100 +
-        maxWidth * ((100 - alignX) / 100);
-    else x = 50 + ((canvas.width - 100) * alignX) / 100;
-    const y = 50 + ((canvas.height - totalTextHeight - 100) * alignY) / 100;
-
-    lines.forEach((line, index) => {
-      ctx.textAlign = alignment;
-      ctx.fillText(line, x, y + index * lineHeight);
-    });
-
-    // Download
-    const link = document.createElement("a");
-    link.download = `status-${Date.now()}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
-  };
-
-  if (!isRoute && !isEditorOpen) return null;
 
   const editorContent = (
     <div

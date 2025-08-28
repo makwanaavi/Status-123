@@ -10,11 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setSelectedStatus,
-  toggleLike,
-  toggleSave,
-} from "../Redux/Action";
+import { setSelectedStatus, toggleLike, toggleSave } from "../Redux/Action";
 
 const StatusViewer = () => {
   const dispatch = useDispatch();
@@ -53,94 +49,7 @@ const StatusViewer = () => {
       }
     } else {
       // Fallback to clipboard
-      await navigator.clipboard.writeText(
-        `${selectedStatus.text}\n\n-`
-      );
-    }
-  };
-
-  const handleDownload = async () => {
-    if (!selectedStatus) return;
-
-    // Create a canvas to render the status
-    const canvas = document.createElement("canvas");
-    canvas.width = 800;
-    canvas.height = 600;
-    const ctx = canvas.getContext("2d");
-
-    if (ctx) {
-      // Create gradient background
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      if (selectedStatus.background.includes("gradient")) {
-        gradient.addColorStop(0, "#667eea");
-        gradient.addColorStop(1, "#764ba2");
-      } else {
-        gradient.addColorStop(0, selectedStatus.background);
-        gradient.addColorStop(1, selectedStatus.background);
-      }
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Add text
-      ctx.fillStyle = selectedStatus.color;
-      ctx.font = `32px ${selectedStatus.font}`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-
-      const words = selectedStatus.text.split(" ");
-      const lines = [];
-      let currentLine = "";
-
-      for (const word of words) {
-        const testLine = currentLine + (currentLine ? " " : "") + word;
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > canvas.width - 100) {
-          lines.push(currentLine);
-          currentLine = word;
-        } else {
-          currentLine = testLine;
-        }
-      }
-      lines.push(currentLine);
-
-      const lineHeight = 50;
-      const startY = canvas.height / 2 - (lines.length * lineHeight) / 2;
-
-      lines.forEach((line, index) => {
-        ctx.fillText(line, canvas.width / 2, startY + index * lineHeight);
-      });
-
-      // Download the image
-      const link = document.createElement("a");
-      link.download = `status-${selectedStatus.id}.png`;
-      link.href = canvas.toDataURL();
-      link.click();
-    }
-  };
-
-  const handlePrevious = () => {
-    if (!selectedStatus) return;
-    const currentIndex = filteredStatuses.findIndex(
-      (s) => s.id === selectedStatus.id
-    );
-    if (currentIndex > 0) {
-      dispatch(setSelectedStatus(filteredStatuses[currentIndex - 1]));
-    }
-  };
-
-  const handleNext = () => {
-    if (!selectedStatus) return;
-    const currentIndex = filteredStatuses.findIndex(
-      (s) => s.id === selectedStatus.id
-    );
-    if (currentIndex < filteredStatuses.length - 1) {
-      dispatch(setSelectedStatus(filteredStatuses[currentIndex + 1]));
+      await navigator.clipboard.writeText(`${selectedStatus.text}\n\n-`);
     }
   };
 
@@ -158,12 +67,6 @@ const StatusViewer = () => {
           break;
         case "ArrowRight":
           handleNext();
-          break;
-        case "l":
-          handleLike();
-          break;
-        case "s":
-          handleSave();
           break;
       }
     };
@@ -301,10 +204,11 @@ const StatusViewer = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleLike}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${selectedStatus.isLiked
+              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
+                selectedStatus.isLiked
                   ? "bg-red-500 text-white"
                   : "bg-white/20 text-white hover:bg-red-500"
-                }`}
+              }`}
             >
               <Heart
                 className="w-4 h-4"
@@ -315,10 +219,11 @@ const StatusViewer = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleSave}
-              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${selectedStatus.isSaved
+              className={`w-9 h-9 rounded-full flex items-center justify-center backdrop-blur-md shadow-md transition-colors ${
+                selectedStatus.isSaved
                   ? "bg-yellow-500 text-white"
                   : "bg-white/20 text-white hover:bg-yellow-500"
-                }`}
+              }`}
             >
               <Bookmark
                 className="w-4 h-4"

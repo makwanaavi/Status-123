@@ -6,10 +6,8 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
-  const { searchQuery, statuses, categories } = useSelector((state) => ({
-    searchQuery: state.status.searchQuery,
+  const { statuses } = useSelector((state) => ({
     statuses: state.status.statuses,
-    categories: [...new Set(state.status.statuses.map((s) => s.category))],
   }));
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
@@ -18,36 +16,6 @@ const Header = () => {
   const [showCatDropdown, setShowCatDropdown] = React.useState(false);
   const [filteredCats, setFilteredCats] = React.useState([]);
   const [menuOpen, setMenuOpen] = React.useState(false);
-
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    dispatch(setSearchQuery(value));
-    if (value.length > 0) {
-      const cats = categories.filter((cat) =>
-        cat.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredCats(cats);
-      setShowCatDropdown(cats.length > 0);
-    } else {
-      setShowCatDropdown(false);
-    }
-  };
-
-  const handleCategorySelect = (cat) => {
-    dispatch(setSearchQuery(cat));
-    setShowCatDropdown(false);
-  };
-
-  // Animation variants for mobile menu
-  const menuVariants = {
-    closed: { x: "100%", opacity: 0 },
-    open: {
-      x: 0,
-      opacity: 1,
-      transition: { type: "spring", stiffness: 300, damping: 30 },
-    },
-    exit: { x: "100%", opacity: 0, transition: { duration: 0.2 } },
-  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white px-2 sm:px-4 md:px-12 lg:px-24">
@@ -101,14 +69,7 @@ const Header = () => {
               <input
                 type="text"
                 placeholder="Search statuses, categories..."
-                value={searchQuery}
-                // onChange={handleSearch}
-                // onFocus={() => {
-                //   if (filteredCats.length > 0) setShowCatDropdown(true);
-                // }}
-                // onBlur={() =>
-                //   setTimeout(() => setShowC  atDropdown(false), 150)
-                // }
+              
                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-gray-50 text-sm sm:text-base transition"
               />
               {/* Category Suggestions Dropdown */}

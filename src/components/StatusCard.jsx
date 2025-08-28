@@ -19,111 +19,9 @@ const StatusCard = ({ status, index }) => {
     dispatch(toggleSave(status.id));
   };
 
-  const handleShare = async (e) => {
-    e.stopPropagation();
-    const shareUrl = `${window.location.origin}/status/${status.id}`;
-    const shareText = `${status.text}\n\n- \n${shareUrl}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: "Beautiful Status",
-          text: status.text,
-          url: shareUrl,
-        });
-      } catch (err) {
-        console.error("Error sharing:", err);
-
-        // fallback to clipboard if user cancels or error occurs
-        await navigator.clipboard.writeText(shareText);
-        alert("Status link copied to clipboard!");
-      }
-    } else if (navigator.clipboard) {
-      await navigator.clipboard.writeText(shareText);
-      alert("Status link copied to clipboard!");
-    } else {
-      window.prompt("Copy this status link:", shareText);
-    }
-  };
-
-  const handleDownload = (e) => {
-    e.stopPropagation();
-    const canvas = document.createElement("canvas");
-    canvas.width = 800;
-    canvas.height = 600;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Create gradient background
-    let fillStyle;
-    if (status.background.includes("gradient")) {
-      const gradient = ctx.createLinearGradient(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      gradient.addColorStop(0, "#667eea");
-      gradient.addColorStop(1, "#764ba2");
-      fillStyle = gradient;
-    } else {
-      fillStyle = status.background;
-    }
-    ctx.fillStyle = fillStyle;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Add text
-    ctx.fillStyle = status.color;
-    ctx.font = `32px ${status.font}`;
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-
-    // Word wrap
-    const words = status.text.split(" ");
-    const lines = [];
-    let currentLine = "";
-    for (const word of words) {
-      const testLine = currentLine + (currentLine ? " " : "") + word;
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > canvas.width - 100) {
-        lines.push(currentLine);
-        currentLine = word;
-      } else {
-        currentLine = testLine;
-      }
-    }
-    lines.push(currentLine);
-
-    const lineHeight = 50;
-    const startY = canvas.height / 2 - (lines.length * lineHeight) / 2;
-    lines.forEach((line, index) => {
-      ctx.fillText(line, canvas.width / 2, startY + index * lineHeight);
-    });
-
-    // Download
-    const link = document.createElement("a");
-    link.download = `status-${status.id}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
-  };
-
   const handleView = () => {
     // Navigate to edit route with status id and pass status in state
     navigate(`/edit/${status.id}`, { state: { status } });
-  };
-
-  // Card styles
-
-  // Helper to determine if color is "light" or "dark"
-  const isColorDark = (hex) => {
-    // Remove hash if present
-    hex = hex.replace("#", "");
-    // Convert to RGB
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-    // Calculate luminance
-    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
-    return luminance < 0.5;
   };
 
   const colors = [
@@ -155,33 +53,6 @@ const StatusCard = ({ status, index }) => {
   );
   const textColor = isColorDark(bgColor) ? "#fff" : "#222";
 
-  // Glassmorphism overlay style
-  const glassStyle = {
-    background: "rgba(255,255,255,0.10)",
-    boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)",
-    backdropFilter: "blur(8px)",
-    WebkitBackdropFilter: "blur(8px)",
-    borderRadius: "1.25rem",
-    border: "1px solid rgba(255,255,255,0.18)",
-    zIndex: 2,
-    position: "absolute",
-    inset: 0,
-    pointerEvents: "none",
-  };
-
-  // Card hover animation
-  const cardMotion = {
-    whileHover: {
-      scale: 1.045,
-      boxShadow: "0 8px 32px 0 rgba(31,38,135,0.18)",
-    },
-    whileTap: { scale: 0.98 },
-  };
-
-  // Avatar color
-  const avatarBg = isColorDark(bgColor) ? "#fff" : "#222";
-  const avatarColor = isColorDark(bgColor) ? "#222" : "#fff";
-
   // Responsive card size
   const [cardSize, setCardSize] = React.useState({ width: 160, height: 220 });
 
@@ -193,11 +64,9 @@ const StatusCard = ({ status, index }) => {
       else if (w >= 1200) setCardSize({ width: 340, height: 400 });
       else if (w >= 900) setCardSize({ width: 340, height: 400 });
       else if (w >= 640) setCardSize({ width: 340, height: 400 });
-      else setCardSize({ width: 340, height: 400 })
-      ;
+      else setCardSize({ width: 340, height: 400 });
     };
 
-    
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -284,7 +153,11 @@ const StatusCard = ({ status, index }) => {
                 title={status.isLiked ? "Unlike" : "Like"}
                 onClick={handleLike}
                 className={`w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110
-                  ${status.isLiked ? "bg-red-500 text-white" : "bg-white text-red-500"}`}
+                  ${
+                    status.isLiked
+                      ? "bg-red-500 text-white"
+                      : "bg-white text-red-500"
+                  }`}
               >
                 <Heart
                   className="w-5 h-5"
@@ -295,7 +168,11 @@ const StatusCard = ({ status, index }) => {
                 title={status.isSaved ? "Unsave" : "Save"}
                 onClick={handleSave}
                 className={`w-9 h-9 rounded-full flex items-center justify-center shadow-md transition-transform hover:scale-110
-                  ${status.isSaved ? "bg-yellow-500 text-white" : "bg-white text-yellow-500"}`}
+                  ${
+                    status.isSaved
+                      ? "bg-yellow-500 text-white"
+                      : "bg-white text-yellow-500"
+                  }`}
               >
                 <Bookmark
                   className="w-5 h-5"
@@ -343,4 +220,3 @@ const StatusCard = ({ status, index }) => {
 };
 
 export default StatusCard;
-

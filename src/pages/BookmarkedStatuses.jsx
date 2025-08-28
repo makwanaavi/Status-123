@@ -1,16 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import StatusCard from "../components/StatusCard";
-import Header from "../components/Header";
 import CategoryFilter from "../components/CategoryFilter";
-import Footer from "../components/Footer";
 
 const BookmarkedStatuses = () => {
-  const { statuses, activeCategory } = useSelector((state) => state.status);
+  const { statuses, activeCategory } = useSelector((state) => state);
 
   const bookmarked = statuses.filter((s) => s.isSaved);
-
-  // Filter by activeCategory from Redux
   const filteredBookmarked =
     activeCategory === "All"
       ? bookmarked
@@ -39,9 +35,7 @@ const BookmarkedStatuses = () => {
               </div>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
-              <div key={`empty-bookmarked-${idx}`} className="opacity-0">
-                {/* Empty placeholder */}
-              </div>
+              <div key={`empty-bookmarked-${idx}`} className="opacity-0" />
             ))}
           </div>
         )}
@@ -51,3 +45,4 @@ const BookmarkedStatuses = () => {
 };
 
 export default BookmarkedStatuses;
+ 

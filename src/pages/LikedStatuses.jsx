@@ -4,11 +4,9 @@ import StatusCard from "../components/StatusCard";
 import CategoryFilter from "../components/CategoryFilter";
 
 const LikedStatuses = () => {
-  const { statuses, activeCategory } = useSelector((state) => state.status);
+  const { statuses, activeCategory } = useSelector((state) => state);
 
   const liked = statuses.filter((s) => s.isLiked);
-
-  // Filter by activeCategory from Redux
   const filteredLiked =
     activeCategory === "All"
       ? liked
@@ -37,9 +35,7 @@ const LikedStatuses = () => {
               </div>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
-              <div key={`empty-liked-${idx}`} className="opacity-0">
-                {/* Empty placeholder */}
-              </div>
+              <div key={`empty-liked-${idx}`} className="opacity-0" />
             ))}
           </div>
         )}
@@ -49,3 +45,4 @@ const LikedStatuses = () => {
 };
 
 export default LikedStatuses;
+

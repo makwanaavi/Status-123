@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import StatusCard from "./StatusCard";
 
 const StatusGrid = () => {
-  const { filteredStatuses, loading } = useSelector((state) => state.status);
+  const { statuses, activeCategory } = useSelector((state) => state);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -30,6 +30,11 @@ const StatusGrid = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const filteredStatuses =
+    activeCategory === "All"
+      ? statuses
+      : statuses.filter((s) => s.category === activeCategory);
+
   const totalPages = Math.ceil(filteredStatuses.length / itemsPerPage);
 
   const pageStatuses = filteredStatuses.slice(
@@ -37,14 +42,6 @@ const StatusGrid = () => {
     page * itemsPerPage
   );
   const emptySlots = itemsPerPage - pageStatuses.length;
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center py-20 ">
-        <div className="w-12 h-12  rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <section
@@ -72,9 +69,7 @@ const StatusGrid = () => {
         ))}
         {/* Empty slots to fill up the grid */}
         {Array.from({ length: emptySlots }).map((_, idx) => (
-          <div key={`empty-${idx}`} className="opacity-0">
-            {/* Empty placeholder */}
-          </div>
+          <div key={`empty-${idx}`} className="opacity-0" />
         ))}
       </div>
 
@@ -145,3 +140,4 @@ const StatusGrid = () => {
 };
 
 export default StatusGrid;
+

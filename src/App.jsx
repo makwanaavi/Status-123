@@ -4,7 +4,6 @@ import store from "./Redux/Store";
 import StatusEditor from "./components/StatusEditor";
 import LikedStatuses from "./pages/LikedStatuses";
 import BookmarkedStatuses from "./pages/BookmarkedStatuses";
-import useLenis from "./components/useLenis";
 import About from "./pages/About";
 import FAQ from "./pages/FQA";
 import Contact from "./pages/Contact";
@@ -13,8 +12,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 
 const App = () => {
-  useLenis();
-
   return (
     <Router>
       <Header />
@@ -34,8 +31,6 @@ const App = () => {
 };
 
 export default App;
-
-
 
 // use this  whole project and make simple and easy to use with good for beginner development
 // make fully simple all redux

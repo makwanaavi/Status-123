@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveCategory } from "../Redux/Action";
 
-
 import React, { useRef } from "react";
 // ...existing code...
 
@@ -16,8 +15,9 @@ const CategoryFilter = () => {
 
   // Handle horizontal scroll with Shift+Wheel
   const handleWheel = (e) => {
-    if (e.shiftKey && scrollRef.current) {
+    if (e.shiftKey && scrollRef.current && e.currentTarget.contains(e.target)) {
       e.preventDefault();
+      e.stopPropagation(); // Prevent scroll event from bubbling up
       scrollRef.current.scrollLeft += e.deltaY;
     }
   };

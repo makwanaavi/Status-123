@@ -107,8 +107,8 @@ const StatusCard = ({ status, index }) => {
   };
 
   const handleView = () => {
-    // Pass status data via navigation state
-    navigate("/create", { state: { status } });
+    // Navigate to edit route with status id and pass status in state
+    navigate(`/edit/${status.id}`, { state: { status } });
   };
 
   // Card styles

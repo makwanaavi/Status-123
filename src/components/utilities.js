@@ -46,6 +46,7 @@ function statusReducer(state = initialState, action) {
         statuses: state.statuses.map((s) =>
           s.id === action.payload ? { ...s, isLiked: !s.isLiked } : s
         ),
+        
       };
     case types.TOGGLE_SAVE:
       return {

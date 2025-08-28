@@ -27,6 +27,8 @@ const rootReducer = combineReducers({
   status: statusReducer,
 });
 
+
+
 const preloadedState = loadState();
 
 const store = configureStore({

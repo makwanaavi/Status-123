@@ -38,7 +38,7 @@ function statusReducer(state = initialState, action) {
     case types.SET_STATUSES:
       return { ...state, statuses: action.payload };
     case types.SET_ACTIVE_CATEGORY:
-      return { ...state, activeCategory: action.payload };
+      return { ...state, statuses: action.payload };
     case types.TOGGLE_LIKE:
       return {
         ...state,

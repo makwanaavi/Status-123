@@ -30,7 +30,8 @@ const App = () => {
         <Footer />
       </Router>
     </Provider>
-  );
+
+);
 };
 
 export default App;

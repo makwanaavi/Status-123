@@ -1,11 +1,7 @@
-import React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 const Contact = () => {
   return (
     <>
-      <Header />
       <div className="bg-gradient-to-b from-white to-pink-50 min-h-screen py-12">
         <div className="container mx-auto w-full px-4">
           <div className="bg-white rounded-xl shadow-lg p-8">
@@ -83,7 +79,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

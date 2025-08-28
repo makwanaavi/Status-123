@@ -47,7 +47,11 @@ const Header = () => {
   // Animation variants for mobile menu
   const menuVariants = {
     closed: { x: "100%", opacity: 0 },
-    open: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 30 } },
+    open: {
+      x: 0,
+      opacity: 1,
+      transition: { type: "spring", stiffness: 300, damping: 30 },
+    },
     exit: { x: "100%", opacity: 0, transition: { duration: 0.2 } },
   };
 
@@ -60,7 +64,9 @@ const Header = () => {
           <div className="flex w-full md:w-auto items-center justify-between md:justify-start mb-2 sm:mb-0">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 sm:w-12 sm:h-12 bg-pink-600 rounded-lg flex items-center justify-center shadow-md">
-                <span className="text-white font-bold text-2xl sm:text-3xl">S</span>
+                <span className="text-white font-bold text-2xl sm:text-3xl">
+                  S
+                </span>
               </div>
               <h1 className="text-xl sm:text-2xl md:text-3xl font-bold bg-pink-600 bg-clip-text text-transparent select-none">
                 <Link to={"/"}>Status</Link>
@@ -72,15 +78,27 @@ const Header = () => {
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Open menu"
             >
-              {menuOpen ? <X className="w-7 h-7 text-pink-600" /> : <Menu className="w-7 h-7 text-pink-600" />}
+              {menuOpen ? (
+                <X className="w-7 h-7 text-pink-600" />
+              ) : (
+                <Menu className="w-7 h-7 text-pink-600" />
+              )}
             </button>
           </div>
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-6 text-pink-500 font-medium text-sm sm:text-base">
-            <Link to={"/"} className="hover:text-pink-700 transition">Home</Link>
-            <Link to={"/about"} className="hover:text-pink-700 transition">About</Link>
-            <Link to={"/contact"} className="hover:text-pink-700 transition">Contact</Link>
-            <Link to={"/faq"} className="hover:text-pink-700 transition">FAQ</Link>
+            <Link to={"/"} className="hover:text-pink-700 transition">
+              Home
+            </Link>
+            <Link to={"/about"} className="hover:text-pink-700 transition">
+              About
+            </Link>
+            <Link to={"/contact"} className="hover:text-pink-700 transition">
+              Contact
+            </Link>
+            <Link to={"/faq"} className="hover:text-pink-700 transition">
+              FAQ
+            </Link>
           </div>
           {/* Search Bar - always below logo/menu on mobile, inline on desktop */}
           <div className="w-full sm:flex-1 max-w-full sm:max-w-md mx-0 sm:mx-4 mb-2 sm:mb-0">
@@ -118,7 +136,7 @@ const Header = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-2 sm:space-x-4">
             <Link
-                to="/create"
+              to="/create"
               onClick={openEditor}
               className="flex items-center space-x-2 bg-pink-600 text-white px-3 sm:px-4 py-2 rounded-full hover:shadow-lg transition text-sm sm:text-base font-semibold"
             >

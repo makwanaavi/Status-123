@@ -1,11 +1,8 @@
 import React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 
 const About = () => {
   return (
     <>
-      <Header />
       <div className="bg-white min-h-screen py-12">
         <div className="container mx-auto  px-4">
           <div className="bg-white rounded-xl shadow-lg p-8">
@@ -106,7 +103,6 @@ const About = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

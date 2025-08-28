@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
+import { applyMiddleware, createStore } from "redux";
 import rootReducer from "./reducers";
 import { thunk } from "redux-thunk";
 
@@ -18,18 +18,12 @@ function saveState(state) {
   try {
     const serializedState = JSON.stringify(state);
     localStorage.setItem("reduxState", serializedState);
-  } catch (e) {
-    // Ignore write errors
-  }
+  } catch (e) {}
 }
 
 const persistedState = loadState();
 
-const store = createStore(
-  rootReducer,
-  persistedState,
-  applyMiddleware(thunk)
-);
+const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
 
 store.subscribe(() => {
   const { status, user, editor } = store.getState();

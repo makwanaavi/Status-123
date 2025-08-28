@@ -38,7 +38,7 @@ const App = () => {
           path="/create"
           element={
             <div className="">
-              <StatusEditor fullPage={true} />
+              <StatusEditor page="create" />
             </div>
           }
         />
@@ -46,7 +46,7 @@ const App = () => {
           path="/edit/:id"
           element={
             <div className="">
-              <StatusEditor fullPage={true} />
+              <StatusEditor page="edit" />
             </div>
           }
         />

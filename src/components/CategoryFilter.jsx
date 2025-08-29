@@ -5,13 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-
   const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const scrollRef = useRef(null);
   const navigate = useNavigate();
 
   const handleCategoryClick = (category) => {
-
   };
 
   const handleWheel = (e) => {

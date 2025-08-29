@@ -9,12 +9,9 @@ import Contact from "./pages/Contact";
 import HomePage from "./pages/HomePage";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import { Provider } from "react-redux";
-import store from "./Redux/Store";
 
 const App = () => {
   return (
-    <Provider store={store}>
       <Router>
         <Header />
         <Routes>
@@ -30,7 +27,6 @@ const App = () => {
         </Routes>
         <Footer />
       </Router>
-    </Provider>
   );
 };
 

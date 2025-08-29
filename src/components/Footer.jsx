@@ -16,7 +16,10 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-gradient-to-br from-pink-100 via-white to-purple-100 shadow-2xl mt-24">
+    <footer
+      className="relative bg-gradient-to-br from-pink-100 via-white to-purple-100 shadow-2xl mt-24"
+      aria-label="Footer"
+    >
       {/* Wave SVG Divider */}
       <div className="absolute top-0 left-0 w-full -translate-y-full pointer-events-none">
         <svg
@@ -126,6 +129,7 @@ const Footer = () => {
               <Link
                 to="#"
                 aria-label="Instagram"
+                rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-pink-100 hover:text-pink-600 transition text-xl"
               >
                 <FaInstagram />
@@ -133,6 +137,7 @@ const Footer = () => {
               <Link
                 to="#"
                 aria-label="Twitter"
+                rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-400 transition text-xl"
               >
                 <FaTwitter />
@@ -140,6 +145,7 @@ const Footer = () => {
               <Link
                 to="#"
                 aria-label="Facebook"
+                rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-700 transition text-xl"
               >
                 <FaFacebook />
@@ -147,6 +153,7 @@ const Footer = () => {
               <Link
                 to="#"
                 aria-label="YouTube"
+                rel="noopener noreferrer"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-red-100 hover:text-red-600 transition text-xl"
               >
                 <FaYoutube />

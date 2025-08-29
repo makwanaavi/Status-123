@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const faqs = [
 	{
@@ -17,10 +17,10 @@ const faqs = [
 		question: "How do I create a new status?",
 		answer: (
 			<>
-				Simply click the <strong>Create</strong> button in the header. Write your
-				status in the provided form and submit it to share with the community.
-				You can also add tags and select a category to help others find your
-				status easily.
+				Simply click the <strong>Create</strong> button in the header. Write
+				your status in the provided form and submit it to share with the
+				community. You can also add tags and select a category to help others
+				find your status easily.
 			</>
 		),
 	},
@@ -29,8 +29,8 @@ const faqs = [
 		answer: (
 			<>
 				Absolutely! You can like and bookmark any status to save it for later.
-				Access your saved statuses anytime from your profile page, making it easy
-				to revisit your favorites.
+				Access your saved statuses anytime from your profile page, making it
+				easy to revisit your favorites.
 			</>
 		),
 	},
@@ -48,10 +48,7 @@ const faqs = [
 		answer: (
 			<>
 				Visit our{" "}
-				<a
-					href="/contact"
-					className="text-pink-600 underline font-medium"
-				>
+				<a href="/contact" className="text-pink-600 underline font-medium">
 					Contact
 				</a>{" "}
 				page to reach out to our support team. We're here to help with any
@@ -63,8 +60,9 @@ const faqs = [
 		question: "Can I suggest new features?",
 		answer: (
 			<>
-				We love hearing from our users! Please use the contact form to share your
-				suggestions and ideas. Your feedback helps us improve and grow StatusApp.
+				We love hearing from our users! Please use the contact form to share
+				your suggestions and ideas. Your feedback helps us improve and grow
+				StatusApp.
 			</>
 		),
 	},
@@ -72,8 +70,8 @@ const faqs = [
 		question: "Is my data safe on StatusApp?",
 		answer: (
 			<>
-				We take your privacy seriously. All your data is securely stored and never
-				shared with third parties. You can manage your account and privacy
+				We take your privacy seriously. All your data is securely stored and
+				never shared with third parties. You can manage your account and privacy
 				settings from your profile.
 			</>
 		),
@@ -138,7 +136,8 @@ const faqs = [
 		answer: (
 			<>
 				Yes, we organize statuses into categories like Love, Funny, Motivation,
-				Friendship, and many more so you can easily find what you’re looking for.
+				Friendship, and many more so you can easily find what you’re looking
+				for.
 			</>
 		),
 	},
@@ -155,8 +154,8 @@ const faqs = [
 		question: "Do I need an account to view statuses?",
 		answer: (
 			<>
-				No, you can browse and explore public statuses without an account. But to
-				create, like, or bookmark, you’ll need to sign up.
+				No, you can browse and explore public statuses without an account. But
+				to create, like, or bookmark, you’ll need to sign up.
 			</>
 		),
 	},
@@ -164,7 +163,8 @@ const faqs = [
 		question: "Can I change my username?",
 		answer: (
 			<>
-				Yes, you can update your username from your profile settings at any time.
+				Yes, you can update your username from your profile settings at any
+				time.
 			</>
 		),
 	},
@@ -172,8 +172,8 @@ const faqs = [
 		question: "Is there a mobile app for StatusApp?",
 		answer: (
 			<>
-				Yes! StatusApp is available on both iOS and Android. Download it from the
-				App Store or Google Play for the best experience.
+				Yes! StatusApp is available on both iOS and Android. Download it from
+				the App Store or Google Play for the best experience.
 			</>
 		),
 	},
@@ -181,8 +181,8 @@ const faqs = [
 		question: "Can I use StatusApp offline?",
 		answer: (
 			<>
-				You’ll need an internet connection to browse and upload statuses. However,
-				saved statuses can be viewed offline from your profile.
+				You’ll need an internet connection to browse and upload statuses.
+				However, saved statuses can be viewed offline from your profile.
 			</>
 		),
 	},
@@ -199,8 +199,8 @@ const faqs = [
 		question: "Can I see who liked my status?",
 		answer: (
 			<>
-				Yes, open your status and tap on the <strong>Likes</strong> count to view
-				the list of users who liked it.
+				Yes, open your status and tap on the <strong>Likes</strong> count to
+				view the list of users who liked it.
 			</>
 		),
 	},
@@ -208,8 +208,8 @@ const faqs = [
 		question: "Is there a limit on how many statuses I can post?",
 		answer: (
 			<>
-				No limit! Post as many statuses as you want and share your creativity with
-				the community.
+				No limit! Post as many statuses as you want and share your creativity
+				with the community.
 			</>
 		),
 	},
@@ -253,8 +253,8 @@ const faqs = [
 		question: "Is there a premium membership?",
 		answer: (
 			<>
-				Yes, StatusApp Premium offers an ad-free experience, exclusive templates,
-				and advanced customization options.
+			 Yes, StatusApp Premium offers an ad-free experience, exclusive
+				templates, and advanced customization options.
 			</>
 		),
 	},
@@ -270,6 +270,12 @@ const faqs = [
 ];
 
 const FAQ = () => {
+	const [openIndex, setOpenIndex] = useState(null);
+
+	const handleToggle = (idx) => {
+		setOpenIndex(openIndex === idx ? null : idx);
+	};
+
 	return (
 		<>
 			<div className="bg-gradient-to-b from-white to-pink-50 min-h-screen py-12">
@@ -286,14 +292,29 @@ const FAQ = () => {
 							</a>
 							.
 						</p>
-						<div className="space-y-6">
+						<div className="space-y-2">
 							{faqs.map((faq, idx) => (
-								<div key={idx} className="border-b pb-6">
-									<h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-										<span className="mr-2 text-pink-600">Q{idx + 1}.</span>
-										{faq.question}
-									</h3>
-									<p className="text-gray-700 pl-7">{faq.answer}</p>
+								<div
+									key={idx}
+									className="border-b pb-2 cursor-pointer transition-colors"
+								>
+									<div
+										className="flex items-center justify-between py-3"
+										onClick={() => handleToggle(idx)}
+									>
+										<h3 className="text-lg font-semibold text-gray-800 flex items-center">
+											<span className="mr-2 text-pink-600">Q{idx + 1}.</span>
+											{faq.question}
+										</h3>
+										<span className="ml-2 text-pink-600 text-xl">
+											{openIndex === idx ? "−" : "+"}
+										</span>
+									</div>
+									{openIndex === idx && (
+										<div className="text-gray-700 pl-7 pb-3 animate-fade-in">
+											{faq.answer}
+										</div>
+									)}
 								</div>
 							))}
 						</div>
@@ -308,6 +329,17 @@ const FAQ = () => {
 					</div>
 				</div>
 			</div>
+			<style>
+				{`
+        @keyframes fade-in {
+          from { opacity: 0; transform: translateY(-10px);}
+          to { opacity: 1; transform: translateY(0);}
+        }
+        .animate-fade-in {
+          animation: fade-in 0.2s;
+        }
+        `}
+			</style>
 		</>
 	);
 };

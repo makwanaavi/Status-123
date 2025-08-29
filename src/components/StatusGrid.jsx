@@ -23,6 +23,7 @@ const StatusGrid = () => {
     // eslint-disable-next-line
   }, [category]);
 
+  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1850) {

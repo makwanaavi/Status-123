@@ -1,8 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const CATEGORIES = [
   "All",
@@ -32,71 +32,30 @@ const CATEGORIES = [
   "Technology",
 ];
 
-const availableFonts = [
-  "Inter",
-  "Playfair Display",
-  "Montserrat",
-  "Roboto",
-  "Open Sans",
-  "Poppins",
-  "Lora",
-  "Merriweather",
-  "Source Sans Pro",
-  "Raleway",
-  "Nunito",
-  "Ubuntu",
-  "Dancing Script",
-  "Pacifico",
-  "Caveat",
-];
-
-const availableBackgrounds = [
-  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-  "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-  "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-  "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-  "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-  "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-  "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
-  "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
-];
-
 const StatusEditor = ({ page = "create" }) => {
+  const dispatch = useDispatch();
   const { id } = useParams();
   const statuses = useSelector((state) => state.status.statuses);
+  const {
+    text,
+    font,
+    fontSize,
+    color,
+    background,
+    alignment,
+    availableFonts,
+    availableBackgrounds,
+    isEditorOpen,
+  } = useSelector((state) => state.editor);
 
-  // If editing, load the status; otherwise, use defaults
-  const editingStatus =
-    page === "edit" && id
-      ? statuses.find((s) => String(s.id) === String(id))
-      : null;
-
-  const [text, setText] = useState(editingStatus ? editingStatus.text : "");
-  const [font, setFont] = useState(
-    editingStatus ? editingStatus.font || "Inter" : "Inter"
-  );
-  const [fontSize, setFontSize] = useState(
-    editingStatus ? editingStatus.fontSize || 24 : 24
-  );
-  const [color, setColor] = useState(
-    editingStatus ? editingStatus.color || "#ffffff" : "#ffffff"
-  );
-  const [background, setBackground] = useState(
-    editingStatus
-      ? editingStatus.background || availableBackgrounds[0]
-      : availableBackgrounds[0]
-  );
-  const [alignment, setAlignment] = useState(
-    editingStatus ? editingStatus.alignment || "center" : "center"
-  );
-  const [category, setCategory] = useState(
-    editingStatus ? editingStatus.category : CATEGORIES[1]
-  );
-  const [alignX, setAlignX] = useState(50);
-  const [alignY, setAlignY] = useState(50);
+  const [category, setCategory] = useState(CATEGORIES[1]);
+  const [alignX, setAlignX] = useState(50); // 0 = left, 100 = right
+  const [alignY, setAlignY] = useState(50); // 0 = top, 100 = bottom
 
   const canvasRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isRoute = true; // Always true for route usage
 
   const handleClose = () => {
     navigate(-1);
@@ -137,7 +96,7 @@ const StatusEditor = ({ page = "create" }) => {
             >
               <textarea
                 value={text}
-                onChange={(e) => setText(e.target.value)}
+                onChange={(e) => dispatch(setText(e.target.value))}
                 placeholder="Start typing your status..."
                 className={`w-full bg-transparent border-none outline-none resize-none placeholder-white/50`}
                 style={{
@@ -209,7 +168,7 @@ const StatusEditor = ({ page = "create" }) => {
             </label>
             <select
               value={font}
-              onChange={(e) => setFont(e.target.value)}
+              onChange={(e) => dispatch(setFont(e.target.value))}
               className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             >
               {availableFonts.map((fontName) => (
@@ -233,7 +192,7 @@ const StatusEditor = ({ page = "create" }) => {
               min="12"
               max="48"
               value={fontSize}
-              onChange={(e) => setFontSize(Number(e.target.value))}
+              onChange={(e) => dispatch(setFontSize(Number(e.target.value)))}
               className="w-full"
             />
           </div>
@@ -247,13 +206,13 @@ const StatusEditor = ({ page = "create" }) => {
               <input
                 type="color"
                 value={color}
-                onChange={(e) => setColor(e.target.value)}
+                onChange={(e) => dispatch(setColor(e.target.value))}
                 className="w-12 h-12 rounded-lg border border-gray-300 cursor-pointer"
               />
               <input
                 type="text"
                 value={color}
-                onChange={(e) => setColor(e.target.value)}
+                onChange={(e) => dispatch(setColor(e.target.value))}
                 className="flex-1 p-2 border border-gray-300 rounded-lg"
                 placeholder="#ffffff"
               />
@@ -268,7 +227,7 @@ const StatusEditor = ({ page = "create" }) => {
               {["left", "center", "right"].map((align) => (
                 <button
                   key={align}
-                  onClick={() => setAlignment(align)}
+                  onClick={() => dispatch(setAlignment(align))}
                   className={`flex-1 py-2 px-4 rounded-lg transition-colors ${
                     alignment === align
                       ? "bg-purple-100 text-purple-700"
@@ -318,7 +277,7 @@ const StatusEditor = ({ page = "create" }) => {
               {availableBackgrounds.map((bg, index) => (
                 <button
                   key={index}
-                  onClick={() => setBackground(bg)}
+                  onClick={() => dispatch(setBackground(bg))}
                   className={`w-full h-12 rounded-lg border-2 transition-all ${
                     background === bg ? "" : ""
                   }`}
@@ -349,12 +308,30 @@ const StatusEditor = ({ page = "create" }) => {
     </div>
   );
 
+  if (isRoute && page) {
+    // Render as a page (no modal, no AnimatePresence)
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        {/* Header and Footer will be rendered by parent (App.jsx) */}
+        <main className="flex-1 flex items-center justify-center">
+          {editorContent}
+        </main>
+      </div>
+    );
+  }
+
+  // Modal overlay for popup mode
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      <main className="flex-1 flex items-center justify-center">
+    <AnimatePresence>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-50 backdrop-blur-sm"
+      >
         {editorContent}
-      </main>
-    </div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 

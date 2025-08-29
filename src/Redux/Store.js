@@ -1,6 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { applyMiddleware, configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
 import statusReducer from "../components/utilities";
+import { thunk } from "redux-thunk";
 
 // Get the initial state from the reducer (for categories)
 const initialStatusState = statusReducer(undefined, {});
@@ -44,6 +45,7 @@ const store = configureStore({
 // Subscribe to store changes and save only statuses array
 store.subscribe(() => {
   saveState(store.getState());
+  applyMiddleware(thunk)
 });
 
 export default store;

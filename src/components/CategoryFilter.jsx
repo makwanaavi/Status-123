@@ -38,7 +38,7 @@ const CategoryFilter = () => {
             <span className="text-gray-400 px-4">No categories found.</span>
           ) : (
             categories.map((category) => (
-              <button
+              <a
                 key={category}
                 onClick={() => handleCategoryClick(category)}
                 className={`px-3 sm:px-4 py-2 rounded-full whitespace-nowrap mt-2 text-xs sm:text-sm font-medium transition-all ${
@@ -48,7 +48,7 @@ const CategoryFilter = () => {
                 }`}
               >
                 {category}
-              </button>
+              </a>
             ))
           )}
         </div>

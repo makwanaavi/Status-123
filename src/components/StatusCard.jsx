@@ -24,25 +24,25 @@ const StatusCard = ({ status }) => {
 
   const colors = [
     "#F8BBD0", // Light Pink
-    "#E1BEE7", // Lavender
-    "#BBDEFB", // Light Blue
-    "#B2EBF2", // Aqua Blue
-    "#C8E6C9", // Light Green
-    "#DCEDC8", // Pale Green
-    "#FFF9C4", // Light Yellow
-    "#FFECB3", // Light Amber
-    "#FFE0B2", // Light Orange
-    "#FFCCBC", // Peach
-    "#D7CCC8", // Beige
-    "#F5F5F5", // Light Grey
-    "#E0F7FA", // Cyan Tint
-    "#F1F8E9", // Mint Green
-    "#F9FBE7", // Lemon Tint
-    "#FFF3E0", // Cream Orange
-    "#F3E5F5", // Light Purple
-    "#EDE7F6", // Soft Violet
-    "#E8EAF6", // Pale Indigo
-    "#ECEFF1", // Cool Grey
+    // "#E1BEE7", // Lavender
+    // "#BBDEFB", // Light Blue
+    // "#B2EBF2", // Aqua Blue
+    // "#C8E6C9", // Light Green
+    // "#DCEDC8", // Pale Green
+    // "#FFF9C4", // Light Yellow
+    // "#FFECB3", // Light Amber
+    // "#FFE0B2", // Light Orange
+    // "#FFCCBC", // Peach
+    // "#D7CCC8", // Beige
+    // "#F5F5F5", // Light Grey
+    // "#E0F7FA", // Cyan Tint
+    // "#F1F8E9", // Mint Green
+    // "#F9FBE7", // Lemon Tint
+    // "#FFF3E0", // Cream Orange
+    // "#F3E5F5", // Light Purple
+    // "#EDE7F6", // Soft Violet
+    // "#E8EAF6", // Pale Indigo
+    // "#ECEFF1", // Cool Grey
   ];
 
   // Pick a random background color for each card instance

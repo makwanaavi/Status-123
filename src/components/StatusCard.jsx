@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { toggleLike, toggleSave } from "../Redux/Action";
 import { useNavigate } from "react-router-dom";
 
-const StatusCard = ({ status }) => {
+const StatusCard = React.memo(({ status }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -86,7 +86,8 @@ const StatusCard = ({ status }) => {
   return (
     <div
       className="group cursor-pointer h-full w-full flex flex-col items-center relative mx-auto"
-      // Added mx-auto for horizontal centering, removed any margin classes
+      tabIndex={0}
+      aria-label={`Status card: ${status.text.slice(0, 30)}`}
       onClick={handleView}
       style={{
         zIndex: 0,
@@ -104,7 +105,7 @@ const StatusCard = ({ status }) => {
           }}
         >
           {/* Floating Avatar */}
-            <div
+          <div
             className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg bg-black"
             style={{
               color: avatarColor,
@@ -123,7 +124,6 @@ const StatusCard = ({ status }) => {
           >
             <User className="w-6 h-6" />
           </div>
-
 
           {/* Content */}
           <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">
@@ -227,6 +227,6 @@ const StatusCard = ({ status }) => {
       </style>
     </div>
   );
-};
+});
 
 export default StatusCard;

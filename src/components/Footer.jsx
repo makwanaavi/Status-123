@@ -11,8 +11,7 @@ const Footer = () => {
   const { categories } = useSelector((state) => state.status);
 
   const handleCategoryClick = (category) => {
-    dispatch(setActiveCategory(category));
-    navigate("/"); // Go to home page to show filtered cards
+    navigate(`/categories/${encodeURIComponent(category)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

@@ -1,11 +1,10 @@
 import React from "react";
-import { motion } from "framer-motion";
 import { Heart, Bookmark, Share2, Download, User } from "lucide-react";
 import { useDispatch } from "react-redux";
-import { toggleLike, toggleSave, setSelectedStatus } from "../Redux/Action";
+import { toggleLike, toggleSave } from "../Redux/Action";
 import { useNavigate } from "react-router-dom";
 
-const StatusCard = ({ status, index }) => {
+const StatusCard = ({ status }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,7 +19,6 @@ const StatusCard = ({ status, index }) => {
   };
 
   const handleView = () => {
-    // Navigate to edit route with status id and pass status in state
     navigate(`/edit/${status.category}`, { state: { status } });
   };
 

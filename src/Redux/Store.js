@@ -1,27 +1,34 @@
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers";
+import statusReducer from "../components/utilities";
+
+// Get the initial state from the reducer (for categories)
+const initialStatusState = statusReducer(undefined, {});
 
 // Load the status object from localStorage, but remove categories if present
 function loadState() {
   try {
     const serializedStatus = localStorage.getItem("reduxStatus");
     if (serializedStatus === null) return undefined;
-    const status = JSON.parse(serializedStatus);
-    // Remove categories if present in localStorage
-    if (status && status.categories) {
-      delete status.categories;
-    }
-    return { status };
+    const loadedStatus = JSON.parse(serializedStatus);
+    // Merge loaded state with initial state to ensure categories always exist
+    return {
+      status: {
+        ...initialStatusState,
+        ...loadedStatus,
+        categories: initialStatusState.categories,
+      },
+    };
   } catch (e) {
     return undefined;
   }
 }
 
-// Save the status object to localStorage, but exclude categories
 function saveState(state) {
   try {
-    const { categories, ...statusWithoutCategories } = state.status || {};
-    const serializedStatus = JSON.stringify(statusWithoutCategories);
+    // Save only statuses, activeCategory, etc. (not categories, which are static)
+    const { categories, ...statusToSave } = state.status || {};
+    const serializedStatus = JSON.stringify(statusToSave);
     localStorage.setItem("reduxStatus", serializedStatus);
   } catch (e) {
     // Ignore write errors
@@ -29,7 +36,6 @@ function saveState(state) {
 }
 
 const preloadedState = loadState();
-
 const store = configureStore({
   reducer: rootReducer,
   preloadedState,

@@ -19,7 +19,7 @@ const StatusCard = ({ status }) => {
   };
 
   const handleView = () => {
-    navigate(`/edit/${status.category}`, { state: { status } });
+    navigate(`/edit/${status.id}`, { state: { status } });
   };
 
   const colors = [

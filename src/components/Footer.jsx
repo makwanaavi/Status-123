@@ -66,6 +66,7 @@ const Footer = () => {
                   <Link
                     to="/"
                     className="hover:underline hover:text-pink-600 transition font-medium"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     Home
                   </Link>
@@ -74,6 +75,7 @@ const Footer = () => {
                   <Link
                     to="/about"
                     className="hover:underline hover:text-pink-600 transition font-medium"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     About Us
                   </Link>
@@ -82,6 +84,7 @@ const Footer = () => {
                   <Link
                     to="/contact"
                     className="hover:underline hover:text-pink-600 transition font-medium"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     Contact Us
                   </Link>
@@ -90,6 +93,7 @@ const Footer = () => {
                   <Link
                     to="/faq"
                     className="hover:underline hover:text-pink-600 transition font-medium"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     FAQs
                   </Link>

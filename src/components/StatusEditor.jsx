@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -162,7 +161,7 @@ const StatusEditor = ({ page = "create" }) => {
         </div>
       </div>
       {/* Editor Panel */}
-      <motion.div
+      <div
         initial={page ? false : { x: 400, opacity: 0 }}
         animate={page ? false : { x: 0, opacity: 1 }}
         exit={page ? false : { x: 400, opacity: 0 }}
@@ -345,7 +344,7 @@ const StatusEditor = ({ page = "create" }) => {
             <span>Save & Share</span>
           </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 

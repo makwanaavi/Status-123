@@ -3,10 +3,12 @@ import { Heart, Bookmark, Share2, Download, User } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { toggleLike, toggleSave } from "../Redux/Action";
 import { useNavigate } from "react-router-dom";
+import html2canvas from "html2canvas"; // Add this import
 
 const StatusCard = React.memo(({ status }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cardRef = React.useRef(null); // Add ref for the card
 
   const handleLike = (e) => {
     e.stopPropagation();
@@ -78,13 +80,27 @@ const StatusCard = React.memo(({ status }) => {
     e.stopPropagation();
     // Implement share logic if needed
   };
-  const handleDownload = (e) => {
+  const handleDownload = async (e) => {
     e.stopPropagation();
-    // Implement download logic if needed
+    if (!cardRef.current) return;
+    // Download card as PNG image
+    const canvas = await html2canvas(cardRef.current, {
+      backgroundColor: null,
+      useCORS: true,
+      scale: 2,
+    });
+    const url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `status-${status.id}.png`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
     <div
+      ref={cardRef} // Attach ref here
       className="group cursor-pointer h-full w-full flex flex-col items-center relative mx-auto"
       tabIndex={0}
       aria-label={`Status card: ${status.text.slice(0, 30)}`}

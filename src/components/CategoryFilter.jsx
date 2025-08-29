@@ -4,19 +4,11 @@ import { setActiveCategory } from "../Redux/Action";
 
 const CategoryFilter = ({ onCategorySelect }) => {
   const dispatch = useDispatch();
-  const status = useSelector((state) => state.status);
-  const categories =
-    status && status.categories && typeof status.categories === "object" && status.categories.length >= 0
-      ? status.categories
-      : [];
-  const activeCategory = status && status.activeCategory;
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleCategoryClick = (category) => {
-    dispatch(setActiveCategory(category));
-    if (onCategorySelect) {
-      onCategorySelect(category);
-    }
+
   };
 
   const handleWheel = (e) => {
@@ -45,7 +37,7 @@ const CategoryFilter = ({ onCategorySelect }) => {
             <span className="text-gray-400 px-4">No categories found.</span>
           ) : (
             categories.map((category) => (
-              <button
+              <a
                 key={category}
                 tabIndex={0}
                 aria-label={`Filter by ${category}`}
@@ -57,7 +49,7 @@ const CategoryFilter = ({ onCategorySelect }) => {
                 }`}
               >
                 {category}
-              </button>
+              </a>
             ))
           )}
         </div>

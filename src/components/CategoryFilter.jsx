@@ -1,11 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { setActiveCategory } from "../Redux/Action";
-import { useNavigate } from "react-router-dom";
 
-const CategoryFilter = () => {
+const CategoryFilter = ({ onCategorySelect }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { categories: rawCategories, activeCategory } = useSelector(
     (state) => state.status
   );
@@ -14,7 +12,9 @@ const CategoryFilter = () => {
 
   const handleCategoryClick = (category) => {
     dispatch(setActiveCategory(category));
-    navigate(`/category/${encodeURIComponent(category)}`);
+    if (onCategorySelect) {
+      onCategorySelect(category);
+    }
   };
 
   const handleWheel = (e) => {

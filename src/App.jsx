@@ -41,3 +41,4 @@ export default App;
 // use this  whole project and make simple and easy to use with good for beginner development
 // make fully simple all redux
 // make fully simple all redux
+// make fully simple all redux

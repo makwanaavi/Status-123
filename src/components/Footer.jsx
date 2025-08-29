@@ -106,7 +106,8 @@ const Footer = () => {
                     to={`/category/${encodeURIComponent(cat)}`}
                     className="px-4 py-1 rounded-full bg-pink-500 text-white font-medium text-sm 
                    shadow-md border border-pink-300
-                   transition-all duration-300 ease-in-out"
+                   transition-all duration-300 ease-in-out scroll-smooth "
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     {cat}
                   </Link>

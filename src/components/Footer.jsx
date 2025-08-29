@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
-import { setActiveCategory } from "../Redux/Action";
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ const Footer = () => {
   ];
 
   const handleCategoryClick = (category) => {
-    dispatch(setActiveCategory(category));
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

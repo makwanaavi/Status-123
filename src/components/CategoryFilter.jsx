@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
 import { setActiveCategory } from "../Redux/Action";
-
-import React, { useRef } from "react";
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-  const { categories, activeCategory } = useSelector((state) => state.status);
+  const { categories: rawCategories, activeCategory } = useSelector((state) => state.status);
+  const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const scrollRef = useRef(null);
 
   const handleCategoryClick = (category) => {

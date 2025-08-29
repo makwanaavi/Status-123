@@ -3,15 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import {
-  setText,
-  setFont,
-  setFontSize,
-  setColor,
-  setBackground,
-  setAlignment,
-  resetEditor,
-} from "../Redux/Action";
 
 const CATEGORIES = [
   "All",
@@ -69,33 +60,6 @@ const StatusEditor = ({ page = "create" }) => {
   const handleClose = () => {
     navigate(-1);
   };
-
-  const handleDownload = () => {
-    // Implement download logic if needed
-  };
-
-  const handleSave = () => {
-    // Implement save/share logic if needed
-  };
-
-  // Prefill logic for edit/create
-  useEffect(() => {
-    if (page === "edit" && id) {
-      const status = statuses.find((s) => String(s.id) === String(id));
-      if (status) {
-        dispatch(setText(status.text));
-        dispatch(setFont("Inter"));
-        dispatch(setFontSize(24));
-        dispatch(setColor("#222"));
-        dispatch(setBackground("#F8BBD0"));
-        dispatch(setAlignment("center"));
-        // Optionally set other fields if needed
-      }
-    } else if (page === "create") {
-      dispatch(resetEditor());
-    }
-    // eslint-disable-next-line
-  }, [page, id, dispatch]);
 
   const editorContent = (
     <div
@@ -326,7 +290,6 @@ const StatusEditor = ({ page = "create" }) => {
         {/* Actions */}
         <div className="p-4 sm:p-6 border-t border-gray-200 space-y-2 sm:space-y-3">
           <button
-            onClick={handleDownload}
             disabled={!text.trim()}
             className="w-full flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
@@ -334,7 +297,6 @@ const StatusEditor = ({ page = "create" }) => {
             <span>Download</span>
           </button>
           <button
-            onClick={handleSave}
             disabled={!text.trim()}
             className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >

@@ -37,15 +37,12 @@ function statusReducer(state = initialState, action) {
   switch (action.type) {
     case types.SET_STATUSES:
       return { ...state, statuses: action.payload };
-    case types.SET_ACTIVE_CATEGORY:
-      return { ...state, statuses: action.payload };
     case types.TOGGLE_LIKE:
       return {
         ...state,
         statuses: state.statuses.map((s) =>
           s.id === action.payload ? { ...s, isLiked: !s.isLiked } : s
         ),
-        
       };
     case types.TOGGLE_SAVE:
       return {
@@ -56,6 +53,8 @@ function statusReducer(state = initialState, action) {
       };
     case types.SET_SELECTED_STATUS:
       return { ...state, selectedStatus: action.payload };
+    case types.SET_ACTIVE_CATEGORY:
+      return { ...state, activeCategory: action.payload };
     default:
       return state;
   }
@@ -97,39 +96,4 @@ const editorInitialState = {
   ],
 };
 
-function editorReducer(state = editorInitialState, action) {
-  switch (action.type) {
-    case types.SET_TEXT:
-      return { ...state, text: action.payload };
-    case types.SET_FONT:
-      return { ...state, font: action.payload };
-    case types.SET_FONT_SIZE:
-      return { ...state, fontSize: action.payload };
-    case types.SET_COLOR:
-      return { ...state, color: action.payload };
-    case types.SET_BACKGROUND:
-      return { ...state, background: action.payload };
-
-    case types.SET_ALIGNMENT:
-      return { ...state, alignment: action.payload };
-    case types.SET_EDITOR_OPEN:
-      return { ...state, isEditorOpen: action.payload };
-
-    case types.RESET_EDITOR:
-      return {
-        ...state,
-        text: "",
-        font: "Inter",
-        fontSize: 24,
-        color: "#ffffff",
-        background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-        backgroundType: "gradient",
-        alignment: "center",
-      };
-    default:
-      return state;
-  }
-}
-
-export { editorReducer };
 export default statusReducer;

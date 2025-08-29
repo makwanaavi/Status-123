@@ -32,6 +32,7 @@ const StatusGrid = () => {
         setItemsPerPage(16);
       } else if (window.innerWidth >= 1550) {
         setItemsPerPage(14);
+        
       } else if (window.innerWidth >= 1450) {
         setItemsPerPage(12);
       } else if (window.innerWidth >= 1024) {

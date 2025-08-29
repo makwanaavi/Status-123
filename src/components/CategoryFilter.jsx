@@ -4,8 +4,9 @@ import { setActiveCategory } from "../Redux/Action";
 
 const CategoryFilter = ({ onCategorySelect }) => {
   const dispatch = useDispatch();
+  // Fix: Provide default empty object for state.status to avoid destructuring undefined
   const { categories: rawCategories, activeCategory } = useSelector(
-    (state) => state.status
+    (state) => state.status || {}
   );
   const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const scrollRef = useRef(null);

@@ -62,6 +62,62 @@ const StatusEditor = ({ page = "create" }) => {
     navigate(-1);
   };
 
+  const handleDownload = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    // Set canvas size
+    const size = 800;
+    canvas.width = size;
+    canvas.height = size;
+
+    const ctx = canvas.getContext("2d");
+    // Draw background
+    ctx.clearRect(0, 0, size, size);
+
+    // Create a temporary div to render the gradient background
+    // Since canvas can't use CSS gradients directly, use a workaround
+    // We'll use a linear gradient for the background
+    const gradient = ctx.createLinearGradient(0, 0, size, size);
+    // Parse the gradient colors from the background string
+    const match = background.match(/linear-gradient\(135deg, (.+?) (\d+%)?, (.+?) (\d+%)?\)/);
+    if (match) {
+      gradient.addColorStop(0, match[1]);
+      gradient.addColorStop(1, match[3]);
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, size, size);
+    } else {
+      ctx.fillStyle = background;
+      ctx.fillRect(0, 0, size, size);
+    }
+
+    // Draw text
+    ctx.font = `${fontSize * 2}px "${font}"`;
+    ctx.fillStyle = color;
+    ctx.textAlign = alignment;
+    ctx.textBaseline = "middle";
+
+    // Calculate position
+    let x = size * (alignX / 100);
+    let y = size * (alignY / 100);
+
+    // Handle multi-line text
+    const lines = text.split("\n");
+    const lineHeight = fontSize * 2 * 1.3;
+    const totalHeight = lines.length * lineHeight;
+    y = y - totalHeight / 2 + lineHeight / 2;
+
+    lines.forEach((line, i) => {
+      ctx.fillText(line, x, y + i * lineHeight);
+    });
+
+    // Download image
+    const link = document.createElement("a");
+    link.download = "status.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
   const editorContent = (
     <div
       className={`w-full flex flex-col md:flex-row items-center justify-center ${
@@ -292,6 +348,7 @@ const StatusEditor = ({ page = "create" }) => {
         <div className="p-4 sm:p-6 border-t border-gray-200 space-y-2 sm:space-y-3">
           <button
             disabled={!text.trim()}
+            onClick={handleDownload}
             className="w-full flex items-center justify-center space-x-2 bg-gray-100 hover:bg-gray-200 text-gray-700 py-3 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Download className="w-4 h-4" />

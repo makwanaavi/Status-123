@@ -100,16 +100,16 @@ const Footer = () => {
               </h3>
               <div className="flex flex-wrap gap-2">
                 {(categories ? categories : []).map((cat) => (
-                  <button
+                  <Link
                     key={cat}
-                    type="button"
-                    onClick={() => handleCategoryClick(cat)}
+                    to={`/category/${encodeURIComponent(cat)}`}
                     className="px-4 py-1 rounded-full bg-pink-500 text-white font-medium text-sm 
                    shadow-md border border-pink-300
-                   transition-all duration-300 ease-in-out"
+                   transition-all duration-300 ease-in-out scroll-smooth "
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   >
                     {cat}
-                  </button>
+                  </Link>
                 ))}
               </div>
             </nav>
@@ -123,34 +123,34 @@ const Footer = () => {
           <div>
             <h3 className="font-bold text-lg text-gray-900 mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a
-                href="#"
+              <Link
+                to="#"
                 aria-label="Instagram"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-pink-100 hover:text-pink-600 transition text-xl"
               >
                 <FaInstagram />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 aria-label="Twitter"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-400 transition text-xl"
               >
                 <FaTwitter />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 aria-label="Facebook"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-blue-100 hover:text-blue-700 transition text-xl"
               >
                 <FaFacebook />
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="#"
                 aria-label="YouTube"
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white shadow hover:bg-red-100 hover:text-red-600 transition text-xl"
               >
                 <FaYoutube />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

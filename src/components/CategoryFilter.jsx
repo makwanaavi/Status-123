@@ -1,15 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useRef } from "react";
 import { setActiveCategory } from "../Redux/Action";
+import { useNavigate } from "react-router-dom";
 
 const CategoryFilter = () => {
   const dispatch = useDispatch();
-  const { categories: rawCategories, activeCategory } = useSelector((state) => state.status);
+  const { categories: rawCategories, activeCategory } = useSelector(
+    (state) => state.status
+  );
   const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const scrollRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleCategoryClick = (category) => {
-    dispatch(setActiveCategory(category));
+    navigate(`/categories/${encodeURIComponent(category)}`);
   };
 
   const handleWheel = (e) => {

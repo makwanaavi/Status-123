@@ -2,11 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Search, Plus, Heart, Bookmark, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setActiveCategory } from "../Redux/Action";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categories, activeCategory } = useSelector((state) => state.status);
   const statuses = useSelector((state) => state.status.statuses);
 
@@ -37,7 +38,7 @@ const Header = () => {
 
   // Handle selecting a category from dropdown or pressing Enter
   const handleCategorySelect = (cat) => {
-    dispatch(setActiveCategory(cat));
+    navigate(`/categories/${encodeURIComponent(cat)}`);
     setSearchValue("");
     setShowCatDropdown(false);
     window.scrollTo({ top: 0, behavior: "smooth" });

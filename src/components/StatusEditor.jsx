@@ -80,7 +80,9 @@ const StatusEditor = ({ page = "create" }) => {
     // We'll use a linear gradient for the background
     const gradient = ctx.createLinearGradient(0, 0, size, size);
     // Parse the gradient colors from the background string
-    const match = background.match(/linear-gradient\(135deg, (.+?) (\d+%)?, (.+?) (\d+%)?\)/);
+    const match = background.match(
+      /linear-gradient\(135deg, (.+?) (\d+%)?, (.+?) (\d+%)?\)/
+    );
     if (match) {
       gradient.addColorStop(0, match[1]);
       gradient.addColorStop(1, match[3]);
@@ -162,14 +164,15 @@ const StatusEditor = ({ page = "create" }) => {
                   textAlign: alignment,
                   fontFamily: font,
                   overflow: "hidden",
-                  minHeight: "60px",
+                  minHeight: "100px",
                   maxHeight: "300px",
                   padding: 0,
                   margin: 0,
                   background: "transparent",
                   wordBreak: "break-word",
                 }}
-                rows={3}
+                rows={10}
+                col
                 maxLength={300}
               />
             </div>
@@ -185,7 +188,7 @@ const StatusEditor = ({ page = "create" }) => {
         className={`w-[50%] bg-white shadow-2xl flex flex-col ${
           page ? "rounded-2xl border border-gray-200 mt-6 md:mt-0 md:ml-8" : ""
         }`}
-      >
+      > 
         {/* Header */}
         <div className="p-4 sm:p-6 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-lg sm:text-xl font-bold text-gray-800">

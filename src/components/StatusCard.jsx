@@ -19,30 +19,30 @@ const StatusCard = ({ status }) => {
   };
 
   const handleView = () => {
-    navigate(`/edit/${status.id}`, { state: { status } });
+    navigate(`/edit/${status.category}`, { state: { status } });
   };
 
   const colors = [
     "#F8BBD0", // Light Pink
-    "#E1BEE7", // Lavender
-    "#BBDEFB", // Light Blue
-    "#B2EBF2", // Aqua Blue
-    "#C8E6C9", // Light Green
-    "#DCEDC8", // Pale Green
-    "#FFF9C4", // Light Yellow
-    "#FFECB3", // Light Amber
-    "#FFE0B2", // Light Orange
-    "#FFCCBC", // Peach
-    "#D7CCC8", // Beige
-    "#F5F5F5", // Light Grey
-    "#E0F7FA", // Cyan Tint
-    "#F1F8E9", // Mint Green
-    "#F9FBE7", // Lemon Tint
-    "#FFF3E0", // Cream Orange
-    "#F3E5F5", // Light Purple
-    "#EDE7F6", // Soft Violet
-    "#E8EAF6", // Pale Indigo
-    "#ECEFF1", // Cool Grey
+    // "#E1BEE7", // Lavender
+    // "#BBDEFB", // Light Blue
+    // "#B2EBF2", // Aqua Blue
+    // "#C8E6C9", // Light Green
+    // "#DCEDC8", // Pale Green
+    // "#FFF9C4", // Light Yellow
+    // "#FFECB3", // Light Amber
+    // "#FFE0B2", // Light Orange
+    // "#FFCCBC", // Peach
+    // "#D7CCC8", // Beige
+    // "#F5F5F5", // Light Grey
+    // "#E0F7FA", // Cyan Tint
+    // "#F1F8E9", // Mint Green
+    // "#F9FBE7", // Lemon Tint
+    // "#FFF3E0", // Cream Orange
+    // "#F3E5F5", // Light Purple
+    // "#EDE7F6", // Soft Violet
+    // "#E8EAF6", // Pale Indigo
+    // "#ECEFF1", // Cool Grey
   ];
 
   // Pick a random background color for each card instance
@@ -104,7 +104,7 @@ const StatusCard = ({ status }) => {
           }}
         >
           {/* Floating Avatar */}
-            <div
+          <div
             className="absolute -top-6 left-1/2 -translate-x-1/2 z-10 shadow-lg bg-black"
             style={{
               color: avatarColor,
@@ -123,7 +123,6 @@ const StatusCard = ({ status }) => {
           >
             <User className="w-6 h-6" />
           </div>
-
 
           {/* Content */}
           <div className="relative h-full p-4 sm:p-6 flex flex-col justify-between z-10">

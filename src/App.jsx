@@ -11,6 +11,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Provider } from "react-redux";
 import store from "./Redux/Store";
+import CategoryPage from "./pages/CategoryPage";
 
 const App = () => {
   return (
@@ -26,12 +27,12 @@ const App = () => {
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
           <Route path="/create" element={<StatusEditor page="create" />} />
           <Route path="/edit/:id" element={<StatusEditor page="edit" />} />
+          <Route path="/categories/:category" element={<CategoryPage />} />
         </Routes>
         <Footer />
       </Router>
     </Provider>
-
-);
+  );
 };
 
 export default App;

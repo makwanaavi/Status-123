@@ -1,11 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import StatusCard from "./StatusCard";
+import { useParams } from "react-router-dom";
+import { setActiveCategory } from "../Redux/Action";
 
 const StatusGrid = () => {
+  const dispatch = useDispatch();
+  const { category } = useParams();
   const { statuses, activeCategory } = useSelector((state) => state.status);
   const [page, setPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  // Sync category from URL to Redux state
+  useEffect(() => {
+    if (category && activeCategory !== category) {
+      dispatch(setActiveCategory(category));
+    }
+    // If no category in URL, you may want to reset to "All"
+    if (!category && activeCategory !== "All") {
+      dispatch(setActiveCategory("All"));
+    }
+    // eslint-disable-next-line
+  }, [category]);
 
   useEffect(() => {
     const handleResize = () => {

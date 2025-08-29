@@ -1,20 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { setActiveCategory } from "../Redux/Action";
 import { FaInstagram, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { categories } = useSelector((state) => state.status);
 
-  const linkSections = [
-    {
-      title: "Quick Links",
-      links: ["Home", "About Us", "Contact Us", "FAQs"],
-    },
-  ];
-
   const handleCategoryClick = (category) => {
+    dispatch(setActiveCategory(category));
+    navigate("/"); // Go to home page to show filtered cards
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -102,23 +100,20 @@ const Footer = () => {
                 Categories
               </h3>
               <div className="flex flex-wrap gap-2">
-                {(Array.isArray(categories) ? categories : [])
-                  .map((cat) => (
-                    <button
-                      key={cat}
-                      type="button"
-                      onClick={() => handleCategoryClick(cat)}
-                      className="px-4 py-1 rounded-full bg-pink-500 text-white font-medium text-sm 
+                {(categories ? categories : []).map((cat) => (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => handleCategoryClick(cat)}
+                    className="px-4 py-1 rounded-full bg-pink-500 text-white font-medium text-sm 
                    shadow-md border border-pink-300
-                
                    transition-all duration-300 ease-in-out"
-                    >
-                      {cat}
-                    </button>
-                  ))}
+                  >
+                    {cat}
+                  </button>
+                ))}
               </div>
             </nav>
-            {/* Socials */}
           </div>
         </div>
         {/* Copyright */}

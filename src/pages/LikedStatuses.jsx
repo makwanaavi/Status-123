@@ -19,7 +19,11 @@ const LikedStatuses = () => {
   return (
     <>
       <CategoryFilter />
-      <section className="py-6 sm:py-8 min-h-screen px-2 sm:px-4 md:px-24">
+      <section
+        className="py-6 sm:py-8 min-h-screen px-2 sm:px-4 md:px-24"
+        aria-label="Liked Statuses"
+        style={{ scrollBehavior: "smooth" }}
+      >
         <h2 className="text-xl sm:text-2xl font-bold mb-6 text-pink-600">
           Liked Statuses
         </h2>
@@ -31,7 +35,8 @@ const LikedStatuses = () => {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {pageLiked.map((status, idx) => (
               <div key={status.id} className="flex justify-center">
-                <StatusCard status={status} index={idx} />
+                {/* Memoized StatusCard for perf */}
+                <MemoStatusCard status={status} index={idx} />
               </div>
             ))}
             {Array.from({ length: emptySlots }).map((_, idx) => (
@@ -43,6 +48,8 @@ const LikedStatuses = () => {
     </>
   );
 };
+
+const MemoStatusCard = React.memo(StatusCard);
 
 export default LikedStatuses;
 

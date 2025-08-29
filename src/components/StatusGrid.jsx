@@ -23,7 +23,6 @@ const StatusGrid = () => {
     // eslint-disable-next-line
   }, [category]);
 
-  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1850) {
@@ -32,7 +31,6 @@ const StatusGrid = () => {
         setItemsPerPage(16);
       } else if (window.innerWidth >= 1550) {
         setItemsPerPage(14);
-        
       } else if (window.innerWidth >= 1450) {
         setItemsPerPage(12);
       } else if (window.innerWidth >= 1024) {
@@ -64,8 +62,10 @@ const StatusGrid = () => {
   return (
     <section
       className="py-4 sm:py-8 px-1 sm:px-2 md:px-4 max-w-full mx-auto relative"
+      aria-label="Status Grid"
       style={{
         overflow: "hidden",
+        scrollBehavior: "smooth",
       }}
     >
       {/* Animated background */}
@@ -83,7 +83,7 @@ const StatusGrid = () => {
         "
       >
         {pageStatuses.map((status, index) => (
-          <StatusCard key={status.id} status={status} index={index} />
+          <MemoStatusCard key={status.id} status={status} index={index} />
         ))}
         {/* Empty slots to fill up the grid */}
         {Array.from({ length: emptySlots }).map((_, idx) => (
@@ -156,6 +156,8 @@ const StatusGrid = () => {
     </section>
   );
 };
+
+const MemoStatusCard = React.memo(StatusCard);
 
 export default StatusGrid;
 

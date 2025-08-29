@@ -1,18 +1,54 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Search, Plus, Heart, Bookmark, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { setActiveCategory } from "../Redux/Action";
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const { categories, activeCategory } = useSelector((state) => state.status);
   const statuses = useSelector((state) => state.status.statuses);
 
   const likedCount = statuses.filter((s) => s.isLiked).length;
   const bookmarkedCount = statuses.filter((s) => s.isSaved).length;
 
+  const [searchValue, setSearchValue] = React.useState("");
   const [showCatDropdown, setShowCatDropdown] = React.useState(false);
   const [filteredCats, setFilteredCats] = React.useState([]);
   const [menuOpen, setMenuOpen] = React.useState(false);
+
+  // Update filteredCats when searchValue changes
+  React.useEffect(() => {
+    if (searchValue.trim() === "") {
+      setFilteredCats([]);
+      setShowCatDropdown(false);
+      return;
+    }
+    const filtered = (categories || [])
+      .filter(
+        (cat) =>
+          cat.toLowerCase() !== "all" &&
+          cat.toLowerCase().includes(searchValue.trim().toLowerCase())
+      );
+    setFilteredCats(filtered);
+    setShowCatDropdown(filtered.length > 0);
+  }, [searchValue, categories]);
+
+  // Handle selecting a category from dropdown or pressing Enter
+  const handleCategorySelect = (cat) => {
+    dispatch(setActiveCategory(cat));
+    setSearchValue("");
+    setShowCatDropdown(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Handle Enter key in search bar
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Enter" && filteredCats.length > 0) {
+      handleCategorySelect(filteredCats[0]);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-white px-2 sm:px-4 md:px-12 lg:px-24">
@@ -65,6 +101,11 @@ const Header = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
               <input
                 type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onFocus={() => setShowCatDropdown(filteredCats.length > 0)}
+                onBlur={() => setTimeout(() => setShowCatDropdown(false), 100)}
+                onKeyDown={handleSearchKeyDown}
                 placeholder="Search statuses, categories..."
                 className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent bg-gray-50 text-sm sm:text-base transition"
               />

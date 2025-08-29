@@ -26,7 +26,7 @@ const App = () => {
           <Route path="/liked" element={<LikedStatuses />} />
           <Route path="/bookmarked" element={<BookmarkedStatuses />} />
           <Route path="/create" element={<StatusEditor page="create" />} />
-          <Route path="/edit/:id" element={<StatusEditor page="edit" />} />
+          <Route path="/edit/:category" element={<StatusEditor page="edit" />} />
           <Route path="/categories/:category" element={<CategoryPage />} />
         </Routes>
         <Footer />

@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Type, Palette, Image, Download, Share2 } from "lucide-react";
@@ -121,7 +122,7 @@ const StatusEditor = ({ page = "create" }) => {
         </div>
       </div>
       {/* Editor Panel */}
-      <motion.div
+      <div
         initial={page ? false : { x: 400, opacity: 0 }}
         animate={page ? false : { x: 0, opacity: 1 }}
         exit={page ? false : { x: 400, opacity: 0 }}
@@ -304,7 +305,7 @@ const StatusEditor = ({ page = "create" }) => {
             <span>Save & Share</span>
           </button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 

@@ -136,7 +136,7 @@ const Header = () => {
               <span className="hidden sm:inline">Create</span>
             </Link>
             <Link to="/liked" className="relative">
-              <motion.div
+              <div
                 whileHover={{ scale: 1.1 }}
                 className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
               >
@@ -146,10 +146,10 @@ const Header = () => {
                     {likedCount}
                   </span>
                 )}
-              </motion.div>
+              </div>
             </Link>
             <Link to="/bookmarked" className="relative">
-              <motion.div
+              <div
                 whileHover={{ scale: 1.1 }}
                 className="p-2 text-gray-600 hover:text-pink-600 transition-colors"
               >
@@ -159,7 +159,7 @@ const Header = () => {
                     {bookmarkedCount}
                   </span>
                 )}
-              </motion.div>
+              </div>
             </Link>
           </div>
         </div>
@@ -167,7 +167,7 @@ const Header = () => {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {menuOpen && (
-          <motion.nav
+          <nav
             initial="closed"
             animate="open"
             exit="exit"
@@ -251,7 +251,7 @@ const Header = () => {
                 </Link>
               </div>
             </div>
-          </motion.nav>
+          </nav>
         )}
       </AnimatePresence>
       {/* Overlay for menu */}

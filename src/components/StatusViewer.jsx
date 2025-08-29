@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   X,
   Heart,
@@ -20,11 +20,11 @@ const StatusViewer = () => {
     dispatch(setSelectedStatus(null));
   };
 
-  const handleLike = () => {
-    if (selectedStatus) {
-      dispatch(toggleLike(selectedStatus.id));
-    }
-  };
+  // const handleLike = () => {
+  //   if (selectedStatus) {
+  //     dispatch(toggleLike(selectedStatus.id));
+  //   }
+  // };
 
   const handleSave = () => {
     if (selectedStatus) {
@@ -96,7 +96,7 @@ const StatusViewer = () => {
 
   return (
     <AnimatePresence>
-      <motion.div
+      <div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -151,7 +151,7 @@ const StatusViewer = () => {
         </button>
 
         {/* Status Display */}
-        <motion.div
+        <div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.8, opacity: 0 }}
@@ -182,7 +182,7 @@ const StatusViewer = () => {
           <div className="relative h-full p-6 flex flex-col justify-between">
             {/* Main Text */}
             <div className="flex-1 flex items-center justify-center">
-              <motion.p
+              <p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
@@ -190,10 +190,10 @@ const StatusViewer = () => {
                 style={{ color: selectedStatus.color }}
               >
                 {selectedStatus.text}
-              </motion.p>
+              </p>
             </div>
             {/* Footer */}
-            <motion.div
+            <div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
@@ -202,16 +202,16 @@ const StatusViewer = () => {
               <span className="text-[10px] uppercase tracking-wide bg-white/20 px-3 py-1 rounded-full text-white/90 backdrop-blur-sm">
                 {selectedStatus.category}
               </span>
-            </motion.div>
+            </div>
           </div>
           {/* Action Buttons */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
             className="absolute top-4 right-4 flex space-x-2 opacity-100"
           >
-            <motion.button
+            <button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleLike}
@@ -225,8 +225,8 @@ const StatusViewer = () => {
                 className="w-4 h-4"
                 fill={selectedStatus.isLiked ? "currentColor" : "none"}
               />
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleSave}
@@ -240,26 +240,26 @@ const StatusViewer = () => {
                 className="w-4 h-4"
                 fill={selectedStatus.isSaved ? "currentColor" : "none"}
               />
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleShare}
               className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-blue-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
             >
               <Share2 className="w-4 h-4" />
-            </motion.button>
-            <motion.button
+            </button>
+            <button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={handleDownload}
               className="w-9 h-9 rounded-full bg-white/20 text-white hover:bg-green-500 flex items-center justify-center backdrop-blur-md shadow-md transition-colors"
             >
               <Download className="w-4 h-4" />
-            </motion.button>
-          </motion.div>
+            </button>
+          </div>
           {/* Statistics */}
-          <motion.div
+          <div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
@@ -278,9 +278,9 @@ const StatusViewer = () => {
                 {currentIndex + 1} / {statuses.length}
               </span>
             </div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </div>
+        </div>
+      </div>
     </AnimatePresence>
   );
 };
